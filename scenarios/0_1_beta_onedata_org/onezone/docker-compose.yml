@@ -19,6 +19,7 @@ services:
       - /volumes/cacerts/gui_cacert.pem:/volumes/persistency/etc/oz_worker/cacerts/gui_cacert.pem
       - /volumes/configs/auth.config:/volumes/persistency/var/lib/oz_worker/auth.config
       - /volumes/configs/dns.config:/volumes/persistency/var/lib/oz_worker/dns.config
+      - /volumes/configs/app.config:/volumes/persistency/etc/oz_worker/app.config
     volumes_from:
       - gui
     links:
