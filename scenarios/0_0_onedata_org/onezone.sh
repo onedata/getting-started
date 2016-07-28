@@ -1,11 +1,13 @@
 #!/bin/bash
+YAML_FILE=docker-compose-onezone.yml
+PROJECT_NAME=onezone-beta
 
 function start {
-    docker-compose -f docker-compose-onezone.yml up -d
+    docker-compose --project-name $PROJECT_NAME -f $YAML_FILE up -d
 }
 
 function stop {
-    docker-compose -f docker-compose-onezone.yml down
+    docker-compose --project-name $PROJECT_NAME -f $YAML_FILE down
 }
 
 function restart {

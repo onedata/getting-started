@@ -1,11 +1,13 @@
 #!/bin/bash
+YAML_FILE=docker-compose-docs.yml
+PROJECT_NAME=onedata-documentation
 
 function start {
-    docker-compose -f docker-compose-docs.yml up -d
+    docker-compose --project-name $PROJECT_NAME -f $YAML_FILE up -d
 }
 
 function stop {
-    docker-compose -f docker-compose-docs.yml down
+    docker-compose --project-name $PROJECT_NAME -f $YAML_FILE down -v --remove-orphans
 }
 
 function restart {
