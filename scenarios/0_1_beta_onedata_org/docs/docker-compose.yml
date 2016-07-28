@@ -1,0 +1,20 @@
+version: '2.0'
+
+services:
+  doc:
+    image: docker.onedata.org/onedata-documentation:develop
+    environment:
+      ONEDATA_DOC_VERSION:
+    volumes:
+      - /usr/share/nginx/html
+
+  nginx:
+    restart: always
+    image: nginx
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - $PWD/nginx:/etc/nginx/conf.d:ro
+    volumes_from:
+      - doc
+    ports:
+      - 80:8080
