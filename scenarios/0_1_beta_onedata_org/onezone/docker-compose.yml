@@ -11,7 +11,7 @@ services:
     image: docker.onedata.org/onezone:ID-8cd42ec2d4
     container_name: oz
     hostname: node1.onedata.localhost.local
-    restart: always
+#    restart: always
     volumes:
       - /volumes/persistency:/volumes/persistency
       - /volumes/certs/gui_key.pem:/volumes/persistency/etc/oz_worker/certs/gui_key.pem
