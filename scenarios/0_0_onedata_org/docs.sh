@@ -1,16 +1,16 @@
 #!/bin/bash
 
 function start {
-  docker-compose -f docker-compose-docs.yml up -d
+    docker-compose -f docker-compose-docs.yml up -d
 }
 
 function stop {
-  docker-compose -f docker-compose-docs.yml down -d
+    docker-compose -f docker-compose-docs.yml down -d
 }
 
 function restart {
-  stop
-  start
+    stop
+    start
 }
 
 function error {
@@ -20,20 +20,20 @@ exit 1
 }
 
 if [[ -z "${1}" ]]; then
-  case ${1} in
-    start)
-      start
-      ;;
-    stop)
-      stop
-      ;;
-    restart)
-      restart
-      ;;
-    *)
-      error
-      ;;
-  esac
+    error
 else
-  error
+    case ${1} in
+        start)
+            start
+            ;;
+        stop)
+            stop
+            ;;
+        restart)
+            restart
+            ;;
+        *)
+            error
+            ;;
+    esac
 fi
