@@ -8,7 +8,7 @@ services:
       - /var/www/html
 
   node1.onedata.localhost.local:
-    image: onedata/onezone:ID-8cd42ec2d4
+    image: docker.onedata.org/onezone:ID-8cd42ec2d4
     container_name: oz
     hostname: node1.onedata.localhost.local
     restart: always
