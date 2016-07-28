@@ -1,11 +1,11 @@
 #!/bin/bash
 
 function start {
-  docker-compose -f docker-compose-onezone.yml up
+  docker-compose -f docker-compose-docs.yml up -d
 }
 
 function stop {
-  docker-compose -f docker-compose-onezone.yml down
+  docker-compose -f docker-compose-docs.yml down -d
 }
 
 function restart {
