@@ -13,7 +13,6 @@ services:
     image: nginx
     volumes:
       - /etc/localtime:/etc/localtime:ro
-      - $PWD/nginx:/etc/nginx/conf.d:ro
     volumes_from:
       - doc
     ports:
