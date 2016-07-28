@@ -19,7 +19,7 @@ echo "Available commands: start|stop|restart"
 exit 1
 }
 
-if [[ -z ${1} ]]; then
+if [[ -z "${1}" ]]; then
   case ${1} in
     start)
       start
