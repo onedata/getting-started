@@ -2,7 +2,7 @@ version: '2.0'
 
 services:
   gui:
-    image: docker.onedata.org/oz-gui-homepage:3.0.0-RC1
+    image: docker.onedata.org/oz-gui-homepage:3.0.0-RC1-4d65c36
     restart: always
     volumes:
       - /var/www/html
