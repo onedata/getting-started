@@ -1,13 +1,19 @@
 #!/bin/bash
 YAML_FILE=docker-compose-docs.yml
 PROJECT_NAME=onedata-documentation
-
+_docker_compose="docker-compose --project-name $PROJECT_NAME -f $YAML_FILE"
 function start {
-    docker-compose --project-name $PROJECT_NAME -f $YAML_FILE up -d
+    $_docker_compose up -d
 }
 
 function stop {
-    docker-compose --project-name $PROJECT_NAME -f $YAML_FILE down -v --remove-orphans
+    $_docker_compose  down -v --remove-orphans
+}
+
+function update {
+    NEW_DOC_VERSION=$1
+    sed -i $YAML_FILE -e "s#\(image: [[:lower:].]\+/[[:lower:].-]\+\):[[:lower:]]\+#\1:${NEW_DOC_VERSION}#g"
+    restart
 }
 
 function restart {
@@ -33,6 +39,9 @@ else
             ;;
         restart)
             restart
+            ;;
+        update)
+            update $2
             ;;
         *)
             error
