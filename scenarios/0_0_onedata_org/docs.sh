@@ -2,29 +2,35 @@
 YAML_FILE=docker-compose-docs.yml
 PROJECT_NAME=onedata-documentation
 _docker_compose="docker-compose --project-name $PROJECT_NAME -f $YAML_FILE"
-function start {
+
+start() {
     $_docker_compose up -d
 }
 
-function stop {
+stop() {
     $_docker_compose  down -v --remove-orphans
 }
 
-function update {
-    NEW_DOC_VERSION=$1
-    sed -i $YAML_FILE -e "s#\(image: [[:lower:].]\+/[[:lower:].-]\+\):[[:lower:]]\+#\1:${NEW_DOC_VERSION}#g"
-    restart
-}
-
-function restart {
+restart() {
     stop
     start
 }
 
-function error {
-echo "Unknown command '$1'"
-echo "Available commands: start|stop|restart"
-exit 1
+update() {
+    NEW_DOC_VERSION=$1
+    sed -i $YAML_FILE -e "s#\(image: [[:lower:].]\+/[[:lower:].-]\+\):[[:lower:]]\+#\1:${NEW_DOC_VERSION}#g"
+    if [[ $2 == "--commit" ]]; then
+        git reset
+        git add $YAML_FILE
+        git commit -m "updated documentation container to docker image id $NEW_DOC_VERSION"
+        git push
+    fi
+}
+
+error() {
+    echo "Unknown command '$1'"
+    echo "Available commands: start|stop|restart"
+    exit 1
 }
 
 if [[ -z "${1}" ]]; then
@@ -41,9 +47,9 @@ else
             restart
             ;;
         update)
-            update $2
+            update $2 $3
             ;;
-        *)
+         *)
             error
             ;;
     esac
