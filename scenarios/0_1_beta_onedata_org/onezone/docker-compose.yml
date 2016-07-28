@@ -1,0 +1,64 @@
+version: '2.0'
+
+services:
+  gui:
+    image: docker.onedata.org/oz-gui-homepage:3.0.0-RC1
+    restart: always
+    volumes:
+      - /var/www/html
+
+  node1.onedata.localhost.local:
+    image: onedata/onezone:3.0.0-RC1
+    container_name: oz
+    hostname: node1.onedata.localhost.local
+    restart: always
+    volumes:
+      - /volumes/persistency:/volumes/persistency
+      - /volumes/certs/gui_key.pem:/volumes/persistency/etc/oz_worker/certs/gui_key.pem
+      - /volumes/certs/gui_cert.pem:/volumes/persistency/etc/oz_worker/certs/gui_cert.pem
+      - /volumes/cacerts/gui_cacert.pem:/volumes/persistency/etc/oz_worker/cacerts/gui_cacert.pem
+      - /volumes/configs/auth.config:/volumes/persistency/var/lib/oz_worker/auth.config
+      - /volumes/configs/dns.config:/volumes/persistency/var/lib/oz_worker/dns.config
+    volumes_from:
+      - gui
+    links:
+      - gui
+    ports:
+      - '53:53'
+      - '53:53/udp'
+      - '80:80'
+      - '443:443'
+      - "5555:5555"
+      - "5556:5556"
+      - "6665:6665"
+      - "6666:6666"
+      - "7443:7443"
+      - "8443:8443"
+      - "8876:8876"
+      - "8877:8877"
+      - "9443:9443"
+    environment:
+      ONEPANEL_BATCH_MODE: "true"
+      ONEZONE_CONFIG: |
+        cluster:
+          domain_name: "onedata.localhost.local"
+          nodes:
+            n1:
+              hostname: "node1"
+          manager:
+            default_node: "n1"
+            nodes:
+              - "n1"
+          worker:
+            nodes:
+              - "n1"
+          database:
+            nodes:
+              - "n1"
+        onezone:
+          name: "beta"
+        onepanel:
+          users:
+            "admin":
+              password: "password"
+              role: "admin"
