@@ -5,7 +5,7 @@ function start {
 }
 
 function stop {
-    docker-compose -f docker-compose-docs.yml down -d
+    docker-compose -f docker-compose-docs.yml down
 }
 
 function restart {

@@ -5,7 +5,7 @@ function start {
 }
 
 function stop {
-    docker-compose -f docker-compose-onezone.yml down -d
+    docker-compose -f docker-compose-onezone.yml down
 }
 
 function restart {
