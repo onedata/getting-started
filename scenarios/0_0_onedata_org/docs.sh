@@ -13,7 +13,13 @@ function restart {
   start
 }
 
-while [[ $# > 0 ]]; do
+function error {
+echo "Unknown command '$1'"
+echo "Available commands: start|stop|restart"
+exit 1
+}
+
+if [[ -z ${1} ]]; then
   case ${1} in
     start)
       start
@@ -25,10 +31,9 @@ while [[ $# > 0 ]]; do
       restart
       ;;
     *)
-      echo "Unknown command '$1'"
-      echo "Available commands: start|stop|restart"
-      exit 1
+      error
       ;;
   esac
-  exit 0
-done
+else
+  error
+fi
