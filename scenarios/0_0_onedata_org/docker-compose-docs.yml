@@ -2,7 +2,7 @@ version: '2.0'
 
 services:
   doc:
-    image: docker.onedata.org/onedata-documentation:678a5aaf00f98e630bbf18dde1dd157882b17e85
+    image: docker.onedata.org/onedata-documentation:ID-489a3e94ee
     environment:
       ONEDATA_DOC_VERSION:
     volumes:
