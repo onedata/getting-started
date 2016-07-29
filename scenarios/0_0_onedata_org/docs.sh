@@ -18,7 +18,7 @@ restart() {
 
 update() {
     NEW_DOC_VERSION=$1
-    sed -i $YAML_FILE -e "s#\(image: [[:alnum:].]\+/[[:alnum:].-]\+\):[[:alnum:]]\+#\1:${NEW_DOC_VERSION}#g"
+    sed -i $YAML_FILE -e "s#\(image: [[:alnum:].-]\+/[[:alnum:].-]\+\):[[:alnum:].-]\+#\1:${NEW_DOC_VERSION}#g"
     if [[ $2 == "--commit" ]]; then
         git reset
         git add $YAML_FILE
