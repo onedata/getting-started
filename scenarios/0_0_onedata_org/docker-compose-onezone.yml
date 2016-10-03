@@ -3,31 +3,32 @@ version: '2.0'
 services:
   gui:
     image: docker.onedata.org/oz-gui-homepage:ID-ff579266a5
-    restart: always
+    container_name: onezone-gui-1
     volumes:
       - /var/www/html
 
-  node1.onedata.localhost.local:
-    image: docker.onedata.org/onezone:ID-8cd42ec2d4
-    container_name: oz
-    hostname: node1.onedata.localhost.local
+  node1.onezone.localhost:
+    image: onedata/onezone:3.0.0-rc9
+    container_name: onezone-1
+    hostname: node1.onezone.localhost
     volumes:
-      - /volumes/persistency:/volumes/persistency
-      - /volumes/certs/gui_key.pem:/volumes/persistency/etc/oz_worker/certs/gui_key.pem
-      - /volumes/certs/gui_cert.pem:/volumes/persistency/etc/oz_worker/certs/gui_cert.pem
-      - /volumes/cacerts/gui_cacert.pem:/volumes/persistency/etc/oz_worker/cacerts/gui_cacert.pem
-      - /volumes/configs/auth.config:/volumes/persistency/var/lib/oz_worker/auth.config
-      - /volumes/configs/dns.config:/volumes/persistency/var/lib/oz_worker/dns.config
-      - /volumes/configs/app.config:/volumes/persistency/etc/oz_worker/app.config
+      - "/var/run/docker.sock:/var/run/docker.sock"
+      - "/volumes/persistence:/volumes/persistence"
+      - "/volumes/certs/gui_key.pem:/volumes/persistence/etc/oz_panel/certs/key.pem"
+      - "/volumes/certs/gui_cert.pem:/volumes/persistence/etc/oz_panel/certs/cert.pem"
+      - "/volumes/cacerts/gui_cacert.pem:/volumes/persistence/etc/oz_panel/certs/cacert.pem"
+      - "/volumes/configs/auth.config:/volumes/persistence/var/lib/oz_worker/auth.config"
+      - "/volumes/configs/dns.config:/volumes/persistence/var/lib/oz_worker/dns.config"
+      - "/volumes/configs/app.config:/volumes/persistence/etc/oz_worker/app.config"
     volumes_from:
       - gui
     links:
       - gui
     ports:
-      - '53:53'
-      - '53:53/udp'
-      - '80:80'
-      - '443:443'
+      - "53:53"
+      - "53:53/udp"
+      - "80:80"
+      - "443:443"
       - "5555:5555"
       - "5556:5556"
       - "6665:6665"
@@ -38,27 +39,29 @@ services:
       - "8877:8877"
       - "9443:9443"
     environment:
+      #ONEPANEL_DEBUG_MODE: "true" # prevents container exit on configuration error
       ONEPANEL_BATCH_MODE: "true"
       ONEZONE_CONFIG: |
         cluster:
-          domain_name: "onedata.localhost.local"
+          domainName: "onezone.localhost"
           nodes:
             n1:
               hostname: "node1"
-          manager:
-            default_node: "n1"
+          managers:
+            mainNode: "n1"
             nodes:
               - "n1"
-          worker:
+          workers:
             nodes:
               - "n1"
-          database:
+          databases:
             nodes:
               - "n1"
         onezone:
-          name: "beta"
+          name: "ONE"
+          domainName: "onezone.localhost"
         onepanel:
           users:
             "admin":
-              password: "password"
-              role: "admin"
+              password: "${ADMIN_PASSWORD}"
+              userRole: "admin"
