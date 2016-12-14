@@ -8,7 +8,7 @@ services:
       - /var/www/html
 
   node1.onezone.localhost:
-    image: onedata/onezone:3.0.0-rc9
+    image: onedata/onezone:3.0.0-rc11
     container_name: onezone-1
     hostname: node1.onezone.localhost
     volumes:
@@ -16,7 +16,8 @@ services:
       - "/volumes/persistence:/volumes/persistence"
       - "/volumes/certs/gui_key.pem:/volumes/persistence/etc/oz_panel/certs/key.pem"
       - "/volumes/certs/gui_cert.pem:/volumes/persistence/etc/oz_panel/certs/cert.pem"
-      - "/volumes/cacerts/gui_cacert.pem:/volumes/persistence/etc/oz_panel/certs/cacert.pem"
+      - "/volumes/cacerts/gui_cacert.pem:/volumes/persistence/etc/oz_panel/cacerts/cacert.pem"
+      - "/volumes/cacerts/gui_cacert.pem:/volumes/persistence/etc/oz_worker/cacerts/cacert.pem"
       - "/volumes/configs/auth.config:/volumes/persistence/var/lib/oz_worker/auth.config"
       - "/volumes/configs/dns.config:/volumes/persistence/var/lib/oz_worker/dns.config"
       - "/volumes/configs/app.config:/volumes/persistence/etc/oz_worker/app.config"
