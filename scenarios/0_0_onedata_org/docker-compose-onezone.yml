@@ -2,7 +2,7 @@ version: '2.0'
 
 services:
   gui:
-    image: docker.onedata.org/oz-gui-homepage:ID-9867af319f
+    image: docker.onedata.org/oz-gui-homepage:ID-9113f46a9f
     container_name: onezone-gui-1
     volumes:
       - /var/www/html
