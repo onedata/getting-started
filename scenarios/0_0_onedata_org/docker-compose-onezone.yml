@@ -15,13 +15,13 @@ services:
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock"
       - "/volumes/persistence:/volumes/persistence"
-      - "/volumes/certs/gui_key.pem:/volumes/persistence/etc/oz_panel/certs/key.pem"
-      - "/volumes/certs/gui_cert.pem:/volumes/persistence/etc/oz_panel/certs/cert.pem"
-      - "/volumes/cacerts/gui_cacert.pem:/volumes/persistence/etc/oz_panel/cacerts/cacert.pem"
-      - "/volumes/cacerts/gui_cacert.pem:/volumes/persistence/etc/oz_worker/cacerts/cacert.pem"
-      - "/volumes/configs/auth.config:/volumes/persistence/var/lib/oz_worker/auth.config"
-      - "/volumes/configs/dns.config:/volumes/persistence/var/lib/oz_worker/dns.config"
-      - "/volumes/configs/app.config:/volumes/persistence/etc/oz_worker/app.config"
+      - "/volumes/certs/gui_key.pem:/etc/oz_panel/certs/key.pem"
+      - "/volumes/certs/gui_cert.pem:/etc/oz_panel/certs/cert.pem"
+      - "/volumes/cacerts/gui_cacert.pem:/etc/oz_panel/cacerts/cacert.pem"
+      - "/volumes/cacerts/gui_cacert.pem:/etc/oz_worker/cacerts/cacert.pem"
+      - "/volumes/configs/auth.config:/var/lib/oz_worker/auth.config"
+      - "/volumes/configs/dns.config:/var/lib/oz_worker/dns.config"
+      - "/volumes/configs/app.config:/etc/oz_worker/app.config"
     volumes_from:
       - gui
     links:
