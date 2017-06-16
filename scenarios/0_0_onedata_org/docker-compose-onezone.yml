@@ -9,7 +9,7 @@ services:
       - "/volumes/onedata-documentation/doc/swagger:/artefact/swagger"
 
   node1.onezone.localhost:
-    image: onedata/onezone:3.0.0-rc14
+    image: onedata/onezone:3.0.0-rc15
     container_name: onezone-1
     hostname: node1.onezone.localhost
     volumes:
@@ -42,6 +42,7 @@ services:
       - "9443:9443"
     environment:
       #ONEPANEL_DEBUG_MODE: "true" # prevents container exit on configuration error
+      ONEPANEL_LOG_LEVEL: "none"
       ONEPANEL_BATCH_MODE: "true"
       ONEZONE_CONFIG: |
         cluster:
