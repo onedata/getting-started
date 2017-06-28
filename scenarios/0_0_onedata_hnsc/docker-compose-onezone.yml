@@ -1,0 +1,60 @@
+version: '2.0'
+
+services:
+  node1.onezone.localhost:
+    image: onedata/onezone:17.06.0-beta2
+    container_name: onezone-1
+    hostname: node1.onezone.localhost
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+      - "/volumes/persistence:/volumes/persistence"
+      - "/volumes/certs/gui_key.pem:/etc/oz_panel/certs/key.pem"
+      - "/volumes/certs/gui_cert.pem:/etc/oz_panel/certs/cert.pem"
+      - "/volumes/cacerts/gui_cacert.pem:/etc/oz_panel/cacerts/cacert.pem"
+      - "/volumes/cacerts/gui_cacert.pem:/etc/oz_worker/cacerts/cacert.pem"
+      - "/volumes/configs/auth.config:/var/lib/oz_worker/auth.config"
+      - "/volumes/configs/dns.config:/var/lib/oz_worker/dns.config"
+      - "/volumes/configs/app.config:/etc/oz_worker/app.config"
+    ports:
+      - "53:53"
+      - "53:53/udp"
+      - "80:80"
+      - "443:443"
+      - "5555:5555"
+      - "5556:5556"
+      - "6665:6665"
+      - "6666:6666"
+      - "7443:7443"
+      - "8443:8443"
+      - "8876:8876"
+      - "8877:8877"
+      - "9443:9443"
+    environment:
+      #ONEPANEL_DEBUG_MODE: "true" # prevents container exit on configuration error
+      ONEPANEL_LOG_LEVEL: "none"
+      ONEPANEL_BATCH_MODE: "true"
+      ONEZONE_CONFIG: |
+        cluster:
+          domainName: "onezone.localhost"
+          autoDeploy: true
+          nodes:
+            n1:
+              hostname: "node1"
+          managers:
+            mainNode: "n1"
+            nodes:
+              - "n1"
+          workers:
+            nodes:
+              - "n1"
+          databases:
+            nodes:
+              - "n1"
+        onezone:
+          name: "OTC HNSC"
+          domainName: "onedata.hnsc.otc-service.com"
+        onepanel:
+          users:
+            "admin":
+              password: "password"
+              userRole: "admin"
