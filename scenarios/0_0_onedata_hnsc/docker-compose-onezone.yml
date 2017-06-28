@@ -56,5 +56,5 @@ services:
         onepanel:
           users:
             "admin":
-              password: "password"
+              password: "${ADMIN_PASSWORD}"
               userRole: "admin"
