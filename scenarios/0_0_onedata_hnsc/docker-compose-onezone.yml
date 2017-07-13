@@ -2,7 +2,7 @@ version: '2.0'
 
 services:
   node1.onezone.localhost:
-    image: onedata/onezone:17.06.0-beta2
+    image: onedata/onezone:17.06.0-beta6
     container_name: onezone-1
     hostname: node1.onezone.localhost
     volumes:
@@ -10,9 +10,12 @@ services:
       - "/volumes/persistence:/volumes/persistence"
       - "/volumes/certs/gui_key.pem:/etc/oz_panel/certs/key.pem"
       - "/volumes/certs/gui_cert.pem:/etc/oz_panel/certs/cert.pem"
+      - "/volumes/certs/saml_key.pem:/etc/oz_worker/certs/saml_key.pem"
+      - "/volumes/certs/saml_cert.pem:/etc/oz_worker/certs/saml_cert.pem"
       - "/volumes/cacerts/gui_cacert.pem:/etc/oz_panel/cacerts/cacert.pem"
       - "/volumes/cacerts/gui_cacert.pem:/etc/oz_worker/cacerts/cacert.pem"
       - "/volumes/configs/auth.config:/var/lib/oz_worker/auth.config"
+      - "/volumes/configs/saml.config:/var/lib/oz_worker/saml.config"
       - "/volumes/configs/dns.config:/var/lib/oz_worker/dns.config"
       - "/volumes/configs/app.config:/etc/oz_worker/app.config"
     ports:
