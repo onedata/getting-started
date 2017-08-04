@@ -2,7 +2,7 @@ version: '2.0'
 
 services:
   node1.onezone.localhost:
-    image: onedata/onezone:17.06.0-beta6
+    image: onedata/onezone:17.06.0-rc2
     container_name: onezone-1
     hostname: node1.onezone.localhost
     volumes:
