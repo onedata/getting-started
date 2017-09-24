@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 FQDN=$(hostname -f)
-
+DOMAIN_NAME=$(domainname -d)
 start() {
     docker rm -f onezone-1
     docker-compose --project-name $PROJECT_NAME  -f $YAML_FILE config
-    FQDN=$FQDN docker-compose --project-name $PROJECT_NAME -f $YAML_FILE up -d
+    DOMAIN_NAME=$DOMAIN_NAME FQDN=$FQDN docker-compose --project-name $PROJECT_NAME -f $YAML_FILE up -d
     docker logs -f  onezone-1
 }
 
