@@ -3,7 +3,7 @@ FQDN=$(hostname -f)
 
 start() {
     docker rm -f onezone-1
-    ocker-compose --project-name $PROJECT_NAME  -f $YAML_FILE config
+    docker-compose --project-name $PROJECT_NAME  -f $YAML_FILE config
     FQDN=$FQDN docker-compose --project-name $PROJECT_NAME -f $YAML_FILE up -d
     docker logs -f  onezone-1
 }
