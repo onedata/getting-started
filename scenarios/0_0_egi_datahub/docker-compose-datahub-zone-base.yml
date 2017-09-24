@@ -9,10 +9,10 @@ services:
       - "/var/run/docker.sock:/var/run/docker.sock"
       - "$PWD/persistence:/volumes/persistence"
       # Certificates
-      - "$PWD/letsencrypt/etc/live/datahub.egi.eu/privkey.pem:/etc/oz_panel/certs/key.pem"
-      - "$PWD/letsencrypt/etc/live/datahub.egi.eu/cert.pem:/etc/oz_panel/certs/cert.pem"
-      - "$PWD/letsencrypt/etc/live/datahub.egi.eu/chain.pem:/etc/oz_panel/cacerts/cacert.pem"
-      - "$PWD/letsencrypt/etc/live/datahub.egi.eu/chain.pem:/etc/oz_worker/cacerts/cacert.pem"
+      - "$PWD/letsencrypt/live/datahub.egi.eu/privkey.pem:/etc/oz_panel/certs/key.pem"
+      - "$PWD/letsencrypt/live/datahub.egi.eu/cert.pem:/etc/oz_panel/certs/cert.pem"
+      - "$PWD/letsencrypt/live/datahub.egi.eu/chain.pem:/etc/oz_panel/cacerts/cacert.pem"
+      - "$PWD/letsencrypt/live/datahub.egi.eu/chain.pem:/etc/oz_worker/cacerts/cacert.pem"
       # Configs
       - "$PWD/configs/auth.config:/var/lib/oz_worker/auth.config"
       - "$PWD/configs/dns.config:/var/lib/oz_worker/dns.config"
