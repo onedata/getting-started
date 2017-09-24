@@ -1,45 +1,5 @@
 #!/usr/bin/env bash
-FQDN=$(hostname -f)
+YAML_FILE=docker-compose-datahub-zone-worker.yml
+PROJECT_NAME=datahub-onezone-worker
 
-start() {
-    docker rm -f onezone-1
-    ocker-compose --project-name $PROJECT_NAME  -f $YAML_FILE config
-    FQDN=$FQDN docker-compose --project-name $PROJECT_NAME  $YAML_FILE up -d
-    docker logs -f  onezone-1
-}
-
-stop() {
-    FQDN=$FQDN docker-compose --project-name $PROJECT_NAME -f $YAML_FILE down
-}
-
-restart() {
-    stop
-    start
-}
-
-error() {
-    echo "Unknown command '$1'"
-    echo "Available commands: start|stop|restart"
-    exit 1
-}
-
-main() {
-    if [[ -z "${1}" ]]; then
-        error
-    else
-        case ${1} in
-            start)
-                start
-                ;;
-            stop)
-                stop
-                ;;
-            restart)
-                restart
-                ;;
-            *)
-                error
-                ;;
-        esac
-    fi
-}
+main "$@"
