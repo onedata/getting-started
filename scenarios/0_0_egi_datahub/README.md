@@ -29,7 +29,7 @@ Configuration directories:
 Master node:
 
 ~~~
-ADMIN_PASSWORD=password LDUTKA_PASSWORD=password ./onezone-datahub-master.sh start
+ADMIN1_PASSWORD=password ADMIN2_PASSWORD=password ./onezone-datahub-master.sh start
 ~~~
 
 Worker node:

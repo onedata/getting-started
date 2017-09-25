@@ -42,10 +42,10 @@ services:
         onepanel:
           users:
             "admin":
-              password: "${ADMIN_PASSWORD}"
+              password: "${ADMIN1_PASSWORD}"
               userRole: "admin"
-            "ldutka":
-              password: "${LDUTKA_PASSWORD}"
+            "admin2":
+              password: "${ADMIN2_PASSWORD}"
               userRole: "admin"
 
 networks:
