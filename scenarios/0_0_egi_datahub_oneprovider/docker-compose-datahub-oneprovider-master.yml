@@ -1,0 +1,62 @@
+version: '2.0'
+
+services:
+  oneprovider-master:
+    extends:
+      file: docker-compose-datahub-oneprovider-base.yml
+      service: oneprovider
+    volumes:
+      # Dataset to import
+      - "/mnt/data/sentinel-s2-l1c:/data"
+    environment:
+      #ONEPANEL_DEBUG_MODE: "true" # prevents container exit on configuration error
+      ONEPANEL_LOG_LEVEL: "info"
+      ONEPANEL_BATCH_MODE: "true"
+      ONEPROVIDER_CONFIG: |
+        cluster:
+          domainName: "plgrid.pl"
+          autoDeploy: true
+          nodes:
+            n1:
+              hostname: "datahub"
+            n2:
+              hostname: "datahubdb01"
+            n3:
+              hostname: "datahubdb02"
+          managers:
+            mainNode: "n1"
+            nodes:
+              - "n1"
+          workers:
+            nodes:
+              - "n1"
+          databases:
+            nodes:
+              - "n2"
+              - "n3"
+          storages:
+            NFS:
+              type: "posix"
+              mountPoint: "/data"
+        oneprovider:
+          register: true
+          name: "Datahub PlGrid"
+          redirectionPoint: "https://datahub.plgrid.pl"
+          geoLatitude: 50.0691294
+          geoLongitude: 19.9069973
+        onezone:
+          domainName: "datahub.egi.eu"
+        onepanel:
+          users:
+            "admin":
+              password: "${ADMIN1_PASSWORD}"
+              userRole: "admin"
+            "admin2":
+              password: "${ADMIN2_PASSWORD}"
+              userRole: "admin"
+
+networks:
+  default:
+    driver: bridge
+    driver_opts:
+      com.docker.network.driver.mtu: 1400

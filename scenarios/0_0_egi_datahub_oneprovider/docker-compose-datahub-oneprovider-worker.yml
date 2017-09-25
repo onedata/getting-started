@@ -1,0 +1,13 @@
+version: '2.0'
+
+services:
+  oneprovider-worker:
+    extends:
+      file: docker-compose-datahub-oneprovider-base.yml
+      service: oneprovider
+
+networks:
+  default:
+    driver: bridge
+    driver_opts:
+      com.docker.network.driver.mtu: 1400
