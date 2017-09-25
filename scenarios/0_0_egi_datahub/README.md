@@ -7,9 +7,9 @@ Starting scripts:
 - [onezone-datahub-worker.sh](onezone-datahub-worker.sh) start onezone worker node
 
 Docker compose files:
-- [docker-compose-datahub-onezone-base.yml](docker-compose-datahub-zone-base.yml) - common base for onezone worker and master
-- [docker-compose-datahub-onezone-master.yml](docker-compose-datahub-zone-master.yml) onezone master configuration
-- [docker-compose-datahub-onezones-worker.yml](docker-compose-datahub-zone-worker.yml) onezone worker configuration
+- [docker-compose-datahub-onezone-base.yml](docker-compose-datahub-onezone-base.yml) - common base for onezone worker and master
+- [docker-compose-datahub-onezone-master.yml](docker-compose-datahub-onezone-master.yml) onezone master configuration
+- [docker-compose-datahub-onezone-worker.yml](docker-compose-datahub-onezone-worker.yml) onezone worker configuration
 
 Utilities:
 
