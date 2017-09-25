@@ -2,13 +2,13 @@
 FQDN=$(hostname -f)
 DOMAIN_NAME=$(domainname -d)
 start() {
-    docker-compose --project-name $PROJECT_NAME  -f $YAML_FILE config
+    DOMAIN_NAME=$DOMAIN_NAME FQDN=$FQDN docker-compose --project-name $PROJECT_NAME  -f $YAML_FILE config
     DOMAIN_NAME=$DOMAIN_NAME FQDN=$FQDN docker-compose --project-name $PROJECT_NAME -f $YAML_FILE up -d
     docker logs -f onezone-1
 }
 
 stop() {
-    FQDN=$FQDN docker-compose --project-name $PROJECT_NAME -f $YAML_FILE down
+    DOMAIN_NAME=$DOMAIN_NAME FQDN=$FQDN docker-compose --project-name $PROJECT_NAME -f $YAML_FILE down
 }
 
 restart() {
@@ -22,8 +22,8 @@ restart-and-clean() {
 
 purge() {
     stop
-    FQDN=$FQDN docker-compose --project-name $PROJECT_NAME -f $YAML_FILE down
-    FQDN=$FQDN docker-compose --project-name $PROJECT_NAME -f $YAML_FILE rm -fsv
+    DOMAIN_NAME=$DOMAIN_NAME FQDN=$FQDN docker-compose --project-name $PROJECT_NAME -f $YAML_FILE down
+    DOMAIN_NAME=$DOMAIN_NAME FQDN=$FQDN docker-compose --project-name $PROJECT_NAME -f $YAML_FILE rm -fsv
     start
 }
 
