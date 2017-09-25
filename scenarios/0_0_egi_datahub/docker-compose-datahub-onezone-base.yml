@@ -16,6 +16,6 @@ services:
       # Configs
       - "$PWD/configs/auth.config:/var/lib/oz_worker/auth.config"
       - "$PWD/configs/dns.config:/var/lib/oz_worker/dns.config"
-      - "$PWD/configs/app.config:/volumes/persistency/etc/op_worker/app.config"
+      - "$PWD/configs/app.config:/volumes/persistency/etc/oz_worker/app.config"
       # Utils
       - "$PWD/configs/brand-logo.svg:/var/lib/oz_worker/gui_static/assets/images/brand-logo.svg"
