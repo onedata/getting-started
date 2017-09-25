@@ -21,4 +21,4 @@ while read cert ; do
   fi
   echo "############"
   echo " "
-done < <(find $letsencrypt_path -iname $cert_pattern )
+done < <(find $letsencrypt_path -iname $cert_pattern)

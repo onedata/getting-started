@@ -16,14 +16,15 @@ restart() {
     start
 }
 restart-and-clean() {
-    stop
+    purge
     start
 }
 
 purge() {
     stop
     DOMAIN_NAME=$DOMAIN_NAME FQDN=$FQDN docker-compose --project-name $PROJECT_NAME -f $YAML_FILE down
-    DOMAIN_NAME=$DOMAIN_NAME FQDN=$FQDN docker-compose --project-name $PROJECT_NAME -f $YAML_FILE rm -fsv
+    DOMAIN_NAME=$DOMAIN_NAME FQDN=$FQDN docker-compose --project-name $PROJECT_NAME -f $YAML_FILE rm -fv
+    sudo rm -rf $PWD/persistence 
     start
 }
 

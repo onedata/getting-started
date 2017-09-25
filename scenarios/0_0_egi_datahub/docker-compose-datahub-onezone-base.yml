@@ -2,7 +2,7 @@ version: '2.0'
 
 services:
   onezone:
-    image: onedata/onezone:17.06.0-rc2
+    image: onedata/onezone:17.06.0-rc3
     container_name: onezone-1
     network_mode: host
     volumes:
@@ -16,6 +16,6 @@ services:
       # Configs
       - "$PWD/configs/auth.config:/var/lib/oz_worker/auth.config"
       - "$PWD/configs/dns.config:/var/lib/oz_worker/dns.config"
-      - "$PWD/configs/app.config:/volumes/persistency/etc/oz_worker/app.config"
+      - "$PWD/configs/app.config:/etc/oz_worker/app.config"
       # Utils
       - "$PWD/configs/brand-logo.svg:/var/lib/oz_worker/gui_static/assets/images/brand-logo.svg"

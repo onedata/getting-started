@@ -31,13 +31,16 @@ services:
             nodes:
               - "n1"
           databases:
+            serverQuota: 76800
+            bucketQuota: 30000
             nodes:
               - "n2"
               - "n3"
           storages:
-            NFS:
+            Sentinel2:
               type: "posix"
               mountPoint: "/data"
+              readonly: true
         oneprovider:
           register: true
           name: "Datahub PlGrid"
