@@ -14,4 +14,4 @@ tmux new-session -s "$session" \
 	send-keys -t "${pane}.2" C-z 'ssh ubuntu@zonedb01.cloud.plgrid.pl' Enter\; \
 	send-keys -t "${pane}.3" C-z 'ssh ubuntu@zonedb02.cloud.plgrid.pl' Enter\; \
 	bind b set-window-option synchronize-panes\; \
-    attach-session%
+    attach-session
