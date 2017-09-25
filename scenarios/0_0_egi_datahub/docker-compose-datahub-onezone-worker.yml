@@ -3,7 +3,7 @@ version: '2.0'
 services:
   onezone-worker:
     extends:
-      file: docker-compose-datahub-zone-base.yml
+      file: docker-compose-datahub-onezone-base.yml
       service: onezone
 
 networks:
