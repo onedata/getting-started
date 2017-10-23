@@ -14,23 +14,23 @@ Scenarios are divided into 2 groups:
 
 #### Oneprovider setup
 
-- [1.0](#s10): preconfigured Oneprovider that connects to [beta.onedata.org](https://beta.onedata.org) zone (public IP required) <br \>
+- [1.0](#s10): preconfigured Oneprovider that connects to [beta.onedata.org](https://beta.onedata.org) zone (public IP required)  
     **Sources:** [scenarios/1_0_oneprovider_beta_onedata_org/](scenarios/1_0_oneprovider_beta_onedata_org/)
 
 #### Onezone and Oneprovider setup
 
-- [2.0](#s20): preconfigured Oneprovider with preconfigured Onezone <br \>
+- [2.0](#s20): preconfigured Oneprovider with preconfigured Onezone  
     **Sources:** [scenarios/2_0_oneprovider_onezone/](scenarios/2_0_oneprovider_onezone/)
 
-- [2.1](#s21): manual configuration of Oneprovider and Onezone <br \>
+- [2.1](#s21): manual configuration of Oneprovider and Onezone  
     **Sources:** [scenarios/2_1_oneprovider_onezone_onepanel/](scenarios/2_1_oneprovider_onezone_onepanel/)
 
 ### Advanced Onezone and Oneprovider scenarios designed to run on separate machines:
 
-- [3.0](#s30): Oneprovider with Onezone on separate machines <br \>
+- [3.0](#s30): Oneprovider with Onezone on separate machines  
     **Sources:** [scenarios/3_0_oneprovider_onezone_multihost/](scenarios/3_0_oneprovider_onezone_multihost/)
 
-- [3.1](#s31): manual configuration of Oneprovider and Onezone on separate machines <br \>
+- [3.1](#s31): manual configuration of Oneprovider and Onezone on separate machines  
     **Sources:** [scenarios/3_0_oneprovider_onezone_onepanel_multihost/](scenarios/3_1_oneprovider_onezone_onepanel_multihost/)
 
 If you are new to Onedata please start with scenario 2.0. 
