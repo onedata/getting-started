@@ -51,7 +51,8 @@ services:
         oneprovider:
           register: true
           name: "${PROVIDER_NAME}"
-          redirectionPoint: "https://node1.oneprovider" # OR DOCKER IP ADDRESS
+          subdomainDelegation: false
+          domain: "node1.oneprovider" # OR DOCKER IP ADDRESS
           geoLatitude: ${GEO_LATITUDE}
           geoLongitude: ${GEO_LONGITUDE}
         onezone:
