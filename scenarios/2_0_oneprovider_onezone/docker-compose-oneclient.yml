@@ -2,7 +2,7 @@ version: '2.0'
 
 services:
   oneclient:
-    image: onedata/oneclient:17.06.0-rc2
+    image: onedata/oneclient:17.06.0-rc5
     privileged: true
     # dns: 8.8.8.8 # uncomment if container can't ping any domain
     container_name: oneclient-1
