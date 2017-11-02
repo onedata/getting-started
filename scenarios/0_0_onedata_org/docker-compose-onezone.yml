@@ -2,14 +2,14 @@ version: '2.0'
 
 services:
   gui:
-    image: docker.onedata.org/oz-gui-homepage:3.0.0-rc15
+    image: onedata/oz-gui-homepage:17.06.0-rc6
     container_name: onezone-gui-1
     volumes:
       - /var/www/html/oz_worker
       - "/volumes/onedata-documentation/doc/swagger:/artefact/swagger"
 
   node1.onezone.localhost:
-    image: onedata/onezone:3.0.0-rc15
+    image: onedata/onezone:17.06.0-rc6
     container_name: onezone-1
     hostname: node1.onezone.localhost
     volumes:
@@ -68,3 +68,4 @@ services:
             "admin":
               password: "${ADMIN_PASSWORD}"
               userRole: "admin"
+
