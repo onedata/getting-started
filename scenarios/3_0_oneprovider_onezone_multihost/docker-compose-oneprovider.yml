@@ -63,6 +63,16 @@ services:
         oneprovider:
           register: true
           name: "${PROVIDER_NAME}"
+
+          # "false" in subdomainDelegation means that provider admin
+          #         manages its DNS on its own and provider is available
+          #         under the domain given in "domain" field
+          # "true" means provider is using a subdomain given in "subdomain"
+          #        config field which is registered under the onezone domain
+          #        given in a config in the onezone domain
+          # Note that for subdomainDelegation "true" to work onezone with
+          # properly configured DNS zone delegation and external IP is needed.
+          # This onezone setup is not covered by the getting-started scenarios.
           subdomainDelegation: false
           domain: "${PROVIDER_FQDN}" # OR IP ADDRESS
           geoLatitude: ${GEO_LATITUDE}
