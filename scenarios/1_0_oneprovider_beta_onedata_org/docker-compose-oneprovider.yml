@@ -65,6 +65,7 @@ services:
           name: "${PROVIDER_NAME}"
           subdomainDelegation: false
           domain: "${PROVIDER_FQDN}" # OR IP ADDRESS
+          adminEmail: "getting-started@onedata.org"
           geoLatitude: ${GEO_LATITUDE}
           geoLongitude: ${GEO_LONGITUDE}
         onezone:

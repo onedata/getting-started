@@ -53,6 +53,7 @@ services:
           name: "${PROVIDER_NAME}"
           subdomainDelegation: false
           domain: "node1.oneprovider" # OR DOCKER IP ADDRESS
+          adminEmail: "getting-started@onedata.org"
           geoLatitude: ${GEO_LATITUDE}
           geoLongitude: ${GEO_LONGITUDE}
         onezone:

@@ -75,6 +75,7 @@ services:
           # This onezone setup is not covered by the getting-started scenarios.
           subdomainDelegation: false
           domain: "${PROVIDER_FQDN}" # OR IP ADDRESS
+          adminEmail: "getting-started@onedata.org"
           geoLatitude: ${GEO_LATITUDE}
           geoLongitude: ${GEO_LONGITUDE}
         onezone:
