@@ -12,11 +12,10 @@ services:
         - "${ONEPROVIDER_CONFIG_DIR}:/volumes/persistence"
         # data persistence
         - "${ONEPROVIDER_DATA_DIR}:/volumes/storage"
-        # Oneprovider
+        # SSL certificates
         #- "${OP_PRIV_KEY_PATH}:/etc/op_panel/certs/key.pem"
         #- "${OP_CERT_PATH}:/etc/op_panel/certs/cert.pem"
-        #- "${OP_CACERT_PATH}:/etc/op_panel/cacerts/cacert.pem"
-        #- "${OP_CACERT_PATH}:/etc/op_worker/cacerts/cacert.pem"
+        #- "${OP_CHAIN_PATH}:/etc/op_panel/certs/chain.pem"
     networks:
       - scenario2
     environment:
