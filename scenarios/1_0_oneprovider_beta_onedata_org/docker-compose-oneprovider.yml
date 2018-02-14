@@ -12,10 +12,12 @@ services:
         - "${ONEPROVIDER_CONFIG_DIR}:/volumes/persistence"
         # data persistence
         - "${ONEPROVIDER_DATA_DIR}:/volumes/storage"
-        # SSL certificates
+        # Server SSL certificates
         #- "${OP_PRIV_KEY_PATH}:/etc/op_panel/certs/web_key.pem"
         #- "${OP_CERT_PATH}:/etc/op_panel/certs/web_cert.pem"
         #- "${OP_CHAIN_PATH}:/etc/op_panel/certs/web_chain.pem"
+        # Additional, trusted CA certificates (any filename is accepted)
+        #- "${OP_CACERTS_PATH}:/etc/op_panel/cacerts/customCaBundle.pem"
     ports:
       - "80:80"
       - "443:443"
@@ -32,14 +34,14 @@ services:
       #   existing certs will be backed up and placed in the same directory.
       # WARNING: This functionality is devised for test purposes and must not
       #   be used in production.
-      ONEPANEL_GENERATE_TEST_WEB_CERT: "false"
+      ONEPANEL_GENERATE_TEST_WEB_CERT: "false"  # default: false
       # The generated test web cert will be issued for below domain.
-      ONEPANEL_GENERATED_CERT_DOMAIN: "node1.oneprovider"
+      ONEPANEL_GENERATED_CERT_DOMAIN: "node1.oneprovider"  # default: ""
       # If enabled, onepanel will trust any server that has a cert signed by
       #   the OnedataTestWebServerCa.
       # WARNING: This functionality is devised for test purposes and must not
       #   be used in production.
-      ONEPANEL_TRUST_TEST_CA: "false"
+      ONEPANEL_TRUST_TEST_CA: "false"  # default: false
 
       ONEPROVIDER_CONFIG: |
         cluster:
