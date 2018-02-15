@@ -8,14 +8,16 @@ services:
     container_name: onezone-1
     volumes:
         - "/var/run/docker.sock:/var/run/docker.sock"
-        # configuration persistance
+        # configuration persistence
         - "${ONEZONE_CONFIG_DIR}:/volumes/persistence"
         # OpenId configuration
         #- "${AUTH_PATH}:/var/lib/oz_worker/auth.config"
-        # SSL Certificates
-        #- "${OZ_PRIV_KEY_PATH}:/etc/oz_panel/certs/key.pem"
-        #- "${OZ_CERT_PATH}:/etc/oz_panel/certs/cert.pem"
-        #- "${OZ_CHAIN_PATH}:/etc/oz_panel/certs/chain.pem"
+        # Server SSL certificates
+        #- "${OZ_PRIV_KEY_PATH}:/etc/oz_panel/certs/web_key.pem"
+        #- "${OZ_CERT_PATH}:/etc/oz_panel/certs/web_cert.pem"
+        #- "${OZ_CHAIN_PATH}:/etc/oz_panel/certs/web_chain.pem"
+        # Additional, trusted CA certificates (any filename is accepted)
+        #- "${OZ_CACERTS_PATH}:/etc/oz_panel/cacerts/customCaBundle.pem"
     ports:
       - "53:53"
       - "53:53/udp"
@@ -35,14 +37,14 @@ services:
       #   existing certs will be backed up and placed in the same directory.
       # WARNING: This functionality is devised for test purposes and must not
       #   be used in production.
-      ONEPANEL_GENERATE_TEST_WEB_CERT: "true"
+      ONEPANEL_GENERATE_TEST_WEB_CERT: "true"  # default: false
       # The generated test web cert will be issued for below domain.
-      ONEPANEL_GENERATED_CERT_DOMAIN: "node1.onezone"
+      ONEPANEL_GENERATED_CERT_DOMAIN: "node1.onezone"  # default: ""
       # If enabled, onepanel will trust any server that has a cert signed by
       #   the OnedataTestWebServerCa.
       # WARNING: This functionality is devised for test purposes and must not
       #   be used in production.
-      ONEPANEL_TRUST_TEST_CA: "true"
+      ONEPANEL_TRUST_TEST_CA: "true"  # default: false
 
       ONEZONE_CONFIG: |
         cluster:
