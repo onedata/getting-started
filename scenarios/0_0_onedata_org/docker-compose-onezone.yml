@@ -1,52 +1,58 @@
 version: '2.0'
 
 services:
-  gui:
-    image: onedata/oz-gui-homepage:17.06.0-rc6
-    container_name: onezone-gui-1
-    volumes:
-      - /var/www/html/oz_worker
-      - "/volumes/onedata-documentation/doc/swagger:/artefact/swagger"
-
-  node1.onezone.localhost:
-    image: onedata/onezone:17.06.0-rc6
+  node1.onezone:
+    image: docker.onedata.org/onezone:18.02.0-beta1
+    hostname: node1.onezone.
+    # dns: 8.8.8.8 # uncomment if container can't ping any domain
     container_name: onezone-1
-    hostname: node1.onezone.localhost
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock"
+      # configuration persistence
       - "/volumes/persistence:/volumes/persistence"
-      - "/volumes/certs/gui_key.pem:/etc/oz_panel/certs/key.pem"
-      - "/volumes/certs/gui_cert.pem:/etc/oz_panel/certs/cert.pem"
-      - "/volumes/cacerts/gui_cacert.pem:/etc/oz_panel/cacerts/cacert.pem"
-      - "/volumes/cacerts/gui_cacert.pem:/etc/oz_worker/cacerts/cacert.pem"
+      # Server SSL certificates
+      - "/volumes/web_certs/web_key.pem:/etc/oz_panel/certs/web_key.pem"
+      - "/volumes/web_certs/web_cert.pem:/etc/oz_panel/certs/web_cert.pem"
+      - "/volumes/web_certs/web_chain.pem:/etc/oz_panel/certs/web_chain.pem"
+      # Additional, trusted CA certificates (any filename is accepted)
+      #- "${OZ_CACERTS_PATH}:/etc/oz_panel/cacerts/customCaBundle.pem"
+      # OpenID and env config
       - "/volumes/configs/auth.config:/var/lib/oz_worker/auth.config"
-      - "/volumes/configs/dns.config:/var/lib/oz_worker/dns.config"
-      - "/volumes/configs/app.config:/etc/oz_worker/app.config"
-    volumes_from:
-      - gui
-    links:
-      - gui
+      - "/volumes/configs/overlay.config:/etc/oz_worker/overlay.config"
+      # Homepage static files
+      - "/volumes/gui:/var/www/html/oz_worker"
+      - "/volumes/docs:/var/www/html/oz_worker/docs"
     ports:
       - "53:53"
       - "53:53/udp"
       - "80:80"
       - "443:443"
-      - "5555:5555"
-      - "5556:5556"
-      - "6665:6665"
-      - "6666:6666"
-      - "7443:7443"
-      - "8443:8443"
-      - "8876:8876"
-      - "8877:8877"
       - "9443:9443"
     environment:
       #ONEPANEL_DEBUG_MODE: "true" # prevents container exit on configuration error
-      ONEPANEL_LOG_LEVEL: "none"
       ONEPANEL_BATCH_MODE: "true"
+      ONEPANEL_LOG_LEVEL: "none" # prints logs to stdout (possible values: none, debug, info, error), by default set to info
+      # Used for test purposes, disable when you have your own web cert mounted via volumes.
+      # Cert will be generated only if none is found under cert path.
+
+      # If enabled, a new web cert will be generated with CN matching the
+      #   ONEPANEL_GENERATED_CERT_DOMAIN and signed by OnedataTestWebServerCa
+      # NOTE: The generation will be performed upon every startup, any
+      #   existing certs will be backed up and placed in the same directory.
+      # WARNING: This functionality is devised for test purposes and must not
+      #   be used in production.
+      ONEPANEL_GENERATE_TEST_WEB_CERT: "false"  # default: false
+      # The generated test web cert will be issued for below domain.
+      ONEPANEL_GENERATED_CERT_DOMAIN: ""  # default: ""
+      # If enabled, onepanel will trust any server that has a cert signed by
+      #   the OnedataTestWebServerCa.
+      # WARNING: This functionality is devised for test purposes and must not
+      #   be used in production.
+      ONEPANEL_TRUST_TEST_CA: "false"  # default: false
+
       ONEZONE_CONFIG: |
         cluster:
-          domainName: "onezone.localhost"
+          domainName: "onezone."
           nodes:
             n1:
               hostname: "node1"
@@ -62,7 +68,7 @@ services:
               - "n1"
         onezone:
           name: "BETA"
-          domainName: "onezone.localhost"
+          domainName: "beta.onedata.org"
         onepanel:
           users:
             "admin":
