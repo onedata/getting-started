@@ -2,8 +2,8 @@ version: '2.0'
 
 services:
   node1.onezone:
-    image: onedata/onezone:17.06.0-rc5
-    hostname: node1.onezone.
+    image: onedata/onezone:18.02.0-beta1
+    hostname: node1.onezone.local
     # dns: 8.8.8.8 # uncomment if container can't ping any domain
     container_name: onezone-1
     volumes:

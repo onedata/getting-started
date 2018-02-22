@@ -2,8 +2,8 @@ version: '2.0'
 
 services:
   node1.oneprovider:
-    image: onedata/oneprovider:17.06.0-rc5
-    hostname: node1.oneprovider.
+    image: onedata/oneprovider:18.02.0-beta1
+    hostname: node1.oneprovider.local
     # dns: 8.8.8.8 # uncomment if container can't ping any domain
     container_name: oneprovider-1
     volumes:
@@ -47,7 +47,7 @@ services:
 
       ONEPROVIDER_CONFIG: |
         cluster:
-          domainName: "oneprovider."
+          domainName: "oneprovider.local"
           nodes:
             n1:
               hostname: "node1"
