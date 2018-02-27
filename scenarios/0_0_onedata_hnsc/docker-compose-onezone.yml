@@ -19,7 +19,7 @@ services:
       # OpenID, SAML and env config
       - "/home/ubuntu/volume/home/ubuntu/volumes/configs/auth.config:/var/lib/oz_worker/auth.config"
       - "/home/ubuntu/volume/home/ubuntu/volumes/configs/saml.config:/var/lib/oz_worker/saml.config"
-      # - "/home/ubuntu/volume/home/ubuntu/volumes/configs/overlay.config:/etc/oz_worker/overlay.config"
+      - "/home/ubuntu/volume/home/ubuntu/volumes/configs/overlay.config:/etc/oz_worker/overlay.config"
     ports:
       - "53:53"
       - "53:53/udp"
