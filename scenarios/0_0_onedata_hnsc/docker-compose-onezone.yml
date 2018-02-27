@@ -25,6 +25,8 @@ services:
       - "53:53/udp"
       - "80:80"
       - "443:443"
+      # Temporary expose for compatibility with 18.02.0-beta1 Oneproviders
+      - "6666:6666"
       - "9443:9443"
     environment:
       #ONEPANEL_DEBUG_MODE: "true" # prevents container exit on configuration error
