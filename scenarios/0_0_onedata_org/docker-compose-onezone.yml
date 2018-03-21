@@ -15,7 +15,7 @@ services:
       - "/volumes/web_certs/web_cert.pem:/etc/oz_panel/certs/web_cert.pem"
       - "/volumes/web_certs/web_chain.pem:/etc/oz_panel/certs/web_chain.pem"
       # OpenID and env config
-      - "/volumes/configs/auth.config:/etc/oz_worker/oz_worker/auth.config"
+      - "/volumes/configs/auth.config:/etc/oz_worker/auth.config"
       - "/volumes/configs/oz-worker-overlay.config:/etc/oz_worker/overlay.config"
       - "/volumes/configs/oz-panel-overlay.config:/etc/oz_panel/overlay.config"
       # Homepage static files
