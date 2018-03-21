@@ -2,7 +2,7 @@ version: '2.0'
 
 services:
   node1.onezone:
-    image: docker.onedata.org/onezone:18.02.0-beta1
+    image: docker.onedata.org/onezone:18.02.0-beta3
     hostname: node1.onezone.local
     # dns: 8.8.8.8 # uncomment if container can't ping any domain
     container_name: onezone-1
@@ -15,7 +15,7 @@ services:
       - "/volumes/web_certs/web_cert.pem:/etc/oz_panel/certs/web_cert.pem"
       - "/volumes/web_certs/web_chain.pem:/etc/oz_panel/certs/web_chain.pem"
       # OpenID and env config
-      - "/volumes/configs/auth.config:/var/lib/oz_worker/auth.config"
+      - "/volumes/configs/auth.config:/etc/oz_worker/oz_worker/auth.config"
       - "/volumes/configs/oz-worker-overlay.config:/etc/oz_worker/overlay.config"
       - "/volumes/configs/oz-panel-overlay.config:/etc/oz_panel/overlay.config"
       # Homepage static files
