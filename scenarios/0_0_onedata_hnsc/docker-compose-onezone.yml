@@ -2,7 +2,7 @@ version: '2.0'
 
 services:
   node1.onezone:
-    image: docker.onedata.org/onezone:18.02.0-beta1
+    image: docker.onedata.org/onezone:18.02.0-beta2  # NOTE change auth/saml config paths when updating to beta3 or later (/var/lib -> /etc)
     container_name: onezone-1
     hostname: node1.onezone.local
     volumes:
