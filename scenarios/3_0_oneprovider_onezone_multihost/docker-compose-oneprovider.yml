@@ -5,11 +5,15 @@ services:
     image: onedata/oneprovider:18.02.0-rc1
     hostname: node1.oneprovider.local
     # dns: 8.8.8.8 # uncomment if container can't ping any domain
+    extra_hosts:
+       - "node1.onezone:${ZONE_FQDN}" # OR IP ADDRESS
     container_name: oneprovider-1
     volumes:
         - "/var/run/docker.sock:/var/run/docker.sock"
         # configuration persistence
         - "${ONEPROVIDER_CONFIG_DIR}:/volumes/persistence"
+        - "${PWD}/op-worker-overlay.config:/etc/op_worker/overlay.config"
+        - "${PWD}/op-panel-overlay.config:/etc/op_panel/overlay.config"
         # data persistence
         - "${ONEPROVIDER_DATA_DIR}:/volumes/storage"
         # Server SSL certificates
@@ -84,7 +88,7 @@ services:
           geoLatitude: ${GEO_LATITUDE}
           geoLongitude: ${GEO_LONGITUDE}
         onezone:
-          domainName: "${ZONE_FQDN}" # OR IP ADDRESS
+          domainName: "node1.onezone"
         onepanel:
           users:
             "admin":
