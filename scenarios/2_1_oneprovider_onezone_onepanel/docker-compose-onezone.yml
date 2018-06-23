@@ -11,7 +11,7 @@ services:
         # configuration persistence
         - "${ONEZONE_CONFIG_DIR}:/volumes/persistence"
         # OpenId configuration
-        #- "${AUTH_PATH}:/var/lib/oz_worker/auth.config"
+        #- "${AUTH_PATH}:/etc/oz_worker/auth.config"
         # Server SSL certificates
         #- "${OZ_PRIV_KEY_PATH}:/etc/oz_panel/certs/web_key.pem"
         #- "${OZ_CERT_PATH}:/etc/oz_panel/certs/web_cert.pem"
