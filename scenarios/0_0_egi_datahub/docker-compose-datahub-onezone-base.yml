@@ -3,7 +3,7 @@ version: '2.0'
 services:
   onezone:
     image: onedata/onezone:18.02.0-rc8
-    hostname: onedata00
+    hostname: $HOSTNAME
     container_name: onezone-1
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock"
@@ -12,12 +12,11 @@ services:
       - "/etc/letsencrypt/live/datahub.egi.eu/privkey.pem:/etc/oz_panel/certs/key.pem"
       - "/etc/letsencrypt/live/datahub.egi.eu/cert.pem:/etc/oz_panel/certs/cert.pem"
       - "/etc/letsencrypt/live/datahub.egi.eu/chain.pem:/etc/oz_panel/cacerts/cacert.pem"
-      - "/etc/letsencrypt/live/datahub.egi.eu/chain.pem:/etc/oz_worker/cacerts/cacert.pem"
       # Configs
       - "/volumes/configs/auth.config:/etc/oz_worker/auth.config"
       - "/volumes/configs/overlay.config:/etc/oz_worker/overlay.config"
       # Utils
-      - "$PWD/configs/brand-logo.svg:/var/lib/oz_worker/gui_static/assets/images/brand-logo.svg"
+      - "/volumes/configs/brand-logo.svg:/var/lib/oz_worker/gui_static/assets/images/brand-logo.svg"
     ports:
       # dns server
       - "53:53"
@@ -38,3 +37,13 @@ services:
       - "11211:11211"
       - "18091-18092:18091-18092"
       - "21100-21299:21100-21299"
+    environment:
+      ONEPANEL_DEBUG_MODE: "true" # if true prevents container exit on configuration error
+      ONEPANEL_LOG_LEVEL: "info"
+      ONEPANEL_BATCH_MODE: "false"
+
+networks:
+  default:
+    driver: bridge
+    driver_opts:
+      com.docker.network.driver.mtu: 1400
