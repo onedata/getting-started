@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -e
 
 ## Copies configuration files to docker-mounted location
 
