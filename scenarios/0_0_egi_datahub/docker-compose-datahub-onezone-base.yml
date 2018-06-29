@@ -4,7 +4,6 @@ services:
   onezone:
     image: onedata/onezone:18.02.0-rc8
     container_name: onezone-1
-    network_mode: host
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock"
       - "$PWD/persistence:/volumes/persistence"
@@ -19,3 +18,23 @@ services:
       - "$PWD/configs/app.config:/etc/oz_worker/app.config"
       # Utils
       - "$PWD/configs/brand-logo.svg:/var/lib/oz_worker/gui_static/assets/images/brand-logo.svg"
+    ports:
+      # dns server
+      - "53:53"
+      - "53:53/udp"
+      # http server
+      - "80:80"
+      - "443:443"
+      # distributed erlang
+      - "9443:9443"
+      - "4369:4369"
+      - "9100-9139:9100-9139"
+      # couchbase
+      - "8091:8091"
+      - "8092:8092"
+      - "11207:11207"
+      - "11209:11209"
+      - "11210:11210"
+      - "11211:11211"
+      - "18091-18092:18091-18092"
+      - "21100-21299:21100-21299"
