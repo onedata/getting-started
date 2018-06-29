@@ -3,7 +3,7 @@ version: '2.0'
 services:
   onezone:
     image: onedata/onezone:18.02.0-rc8
-    hostname: $HOSTNAME
+    hostname: $HOST
     container_name: onezone-1
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock"

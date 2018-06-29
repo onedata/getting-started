@@ -1,32 +1,22 @@
-#!/usr/bin/env bash
-FQDN=$(hostname -f)
-DOMAIN_NAME=$(domainname -d)
+#!/usr/bin/env bash -e
+HOST=$(hostname -f)
+YAML_FILE=docker-compose-datahub-onezone.yml
+PROJECT_NAME=datahub-onezone
+
 start() {
-    DOMAIN_NAME=$DOMAIN_NAME FQDN=$FQDN docker-compose --project-name $PROJECT_NAME  -f $YAML_FILE config
-    DOMAIN_NAME=$DOMAIN_NAME FQDN=$FQDN docker-compose --project-name $PROJECT_NAME -f $YAML_FILE up -d
+    HOST=$HOST docker-compose --project-name $PROJECT_NAME -f $YAML_FILE config
+    HOST=$HOST docker-compose --project-name $PROJECT_NAME -f $YAML_FILE up -d
     docker logs -f onezone-1
 }
 
 stop() {
-    DOMAIN_NAME=$DOMAIN_NAME FQDN=$FQDN docker-compose --project-name $PROJECT_NAME -f $YAML_FILE down
+    HOST=$HOST docker-compose --project-name $PROJECT_NAME -f $YAML_FILE down
 }
 
 restart() {
     stop
     start
 }
-#restart-and-clean() {
-#    purge
-#    start
-#}
-
-#purge() {
-#    stop
-#    DOMAIN_NAME=$DOMAIN_NAME FQDN=$FQDN docker-compose --project-name $PROJECT_NAME -f $YAML_FILE down
-#    DOMAIN_NAME=$DOMAIN_NAME FQDN=$FQDN docker-compose --project-name $PROJECT_NAME -f $YAML_FILE rm -fv
-#    sudo rm -rf $PWD/persistence 
-#    start
-#}
 
 error() {
     echo "Unknown command '$1'"
@@ -47,12 +37,6 @@ main() {
                 ;;
             restart)
                 restart
-                ;;
-            purge)
-                purge
-                ;;
-            restart-and-clean)
-                restart-and-clean
                 ;;
             *)
                 error
