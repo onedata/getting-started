@@ -15,6 +15,7 @@ services:
       # Configs
       - "/volumes/configs/auth.config:/etc/oz_worker/auth.config"
       - "/volumes/configs/oz_worker.overlay.config:/etc/oz_worker/overlay.config"
+      - "/volumes/configs/onepanel.overlay.config:/etc/oz_panel/overlay.config"
       # Utils
       - "/volumes/configs/brand-logo.svg:/var/lib/oz_worker/gui_static/assets/images/brand-logo.svg"
     ports:
