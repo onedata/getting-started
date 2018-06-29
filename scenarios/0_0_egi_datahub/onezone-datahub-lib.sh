@@ -15,18 +15,18 @@ restart() {
     stop
     start
 }
-restart-and-clean() {
-    purge
-    start
-}
+#restart-and-clean() {
+#    purge
+#    start
+#}
 
-purge() {
-    stop
-    DOMAIN_NAME=$DOMAIN_NAME FQDN=$FQDN docker-compose --project-name $PROJECT_NAME -f $YAML_FILE down
-    DOMAIN_NAME=$DOMAIN_NAME FQDN=$FQDN docker-compose --project-name $PROJECT_NAME -f $YAML_FILE rm -fv
-    sudo rm -rf $PWD/persistence 
-    start
-}
+#purge() {
+#    stop
+#    DOMAIN_NAME=$DOMAIN_NAME FQDN=$FQDN docker-compose --project-name $PROJECT_NAME -f $YAML_FILE down
+#    DOMAIN_NAME=$DOMAIN_NAME FQDN=$FQDN docker-compose --project-name $PROJECT_NAME -f $YAML_FILE rm -fv
+#    sudo rm -rf $PWD/persistence 
+#    start
+#}
 
 error() {
     echo "Unknown command '$1'"

@@ -2,7 +2,7 @@ version: '2.0'
 
 services:
   onezone:
-    image: onedata/onezone:17.06.0-rc3
+    image: docker.onedata.org/onezone:17.06.1
     container_name: onezone-1
     network_mode: host
     volumes:
@@ -17,5 +17,6 @@ services:
       - "$PWD/configs/auth.config:/var/lib/oz_worker/auth.config"
       - "$PWD/configs/dns.config:/var/lib/oz_worker/dns.config"
       - "$PWD/configs/app.config:/etc/oz_worker/app.config"
+      - "$PWD/configs/auth_egi.beam:/usr/lib/oz_worker/lib/oz_worker-17.06.0/ebin/auth_egi.beam"
       # Utils
       - "$PWD/configs/brand-logo.svg:/var/lib/oz_worker/gui_static/assets/images/brand-logo.svg"
