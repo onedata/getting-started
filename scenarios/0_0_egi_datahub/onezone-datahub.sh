@@ -1,4 +1,5 @@
-#!/usr/bin/env bash -e
+#!/usr/bin/env bash
+set -e
 
 source ./common-config.sh
 
@@ -46,3 +47,5 @@ main() {
         esac
     fi
 }
+
+main "$@"

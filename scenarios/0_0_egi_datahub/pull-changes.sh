@@ -7,6 +7,6 @@ for NODE in ${ALL_NODES}; do
     if [[ ${HOST} == ${NODE} ]]; then
         cd ${REPO_PATH} && git fetch && git reset --hard origin/${BRANCH_NAME}
     else
-        ssh ${NODE} cd ${REPO_PATH} && git fetch && git reset --hard origin/${BRANCH_NAME}
+        ssh ${NODE} -t "cd ${REPO_PATH} && git fetch && git reset --hard origin/${BRANCH_NAME}"
     fi
 done

@@ -3,8 +3,10 @@ set -e
 
 ## Copies configuration files to docker-mounted location
 
-SOURCE=./configs
-DEST=/volumes/configs
+source ./common-config.sh
 
-rsync -cria $SOURCE/ $DEST
+SOURCE=./configs
+
+sudo rsync -cit $AUTH_CONFIG_PATH $CONFIGS_PATH/
+sudo rsync -crit $SOURCE/ $CONFIGS_PATH
 

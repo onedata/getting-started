@@ -14,7 +14,7 @@ services:
       - "/etc/letsencrypt/live/datahub.egi.eu/chain.pem:/etc/oz_panel/cacerts/cacert.pem"
       # Configs
       - "/volumes/configs/auth.config:/etc/oz_worker/auth.config"
-      - "/volumes/configs/overlay.config:/etc/oz_worker/overlay.config"
+      - "/volumes/configs/oz_worker.overlay.config:/etc/oz_worker/overlay.config"
       # Utils
       - "/volumes/configs/brand-logo.svg:/var/lib/oz_worker/gui_static/assets/images/brand-logo.svg"
     ports:

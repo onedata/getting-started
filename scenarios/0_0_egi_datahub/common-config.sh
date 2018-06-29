@@ -10,4 +10,7 @@ ALL_NODES="${MASTER} ${SLAVE_1} ${SLAVE_2} ${SLAVE_3}"
 REPO_PATH="/home/ubuntu/getting-started"
 BRANCH_NAME=`git rev-parse --abbrev-ref HEAD`
 
+AUTH_CONFIG_PATH="/home/ubuntu/auth.config"
+CONFIGS_PATH=/volumes/configs
+
 HOST=`hostname -f`
