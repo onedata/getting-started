@@ -2,7 +2,7 @@ version: '2.0'
 
 services:
   onezone:
-    image: docker.onedata.org/onezone:17.06.2
+    image: onedata/onezone:18.02.0-rc8
     container_name: onezone-1
     network_mode: host
     volumes:
