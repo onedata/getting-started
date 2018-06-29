@@ -1,5 +1,7 @@
 #!/usr/bin/env bash -e
-HOST=$(hostname -f)
+
+source ./common-config.sh
+
 YAML_FILE=docker-compose-datahub-onezone.yml
 PROJECT_NAME=datahub-onezone
 
