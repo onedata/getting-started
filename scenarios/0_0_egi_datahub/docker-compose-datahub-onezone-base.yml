@@ -3,18 +3,19 @@ version: '2.0'
 services:
   onezone:
     image: onedata/onezone:18.02.0-rc8
+    hostname: onedata00
     container_name: onezone-1
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock"
-      - "$PWD/persistence:/volumes/persistence"
+      - "/volumes/persistence:/volumes/persistence"
       # Certificates
-      - "$PWD/letsencrypt/live/datahub.egi.eu/privkey.pem:/etc/oz_panel/certs/key.pem"
-      - "$PWD/letsencrypt/live/datahub.egi.eu/cert.pem:/etc/oz_panel/certs/cert.pem"
-      - "$PWD/letsencrypt/live/datahub.egi.eu/chain.pem:/etc/oz_panel/cacerts/cacert.pem"
-      - "$PWD/letsencrypt/live/datahub.egi.eu/chain.pem:/etc/oz_worker/cacerts/cacert.pem"
+      - "/etc/letsencrypt/live/datahub.egi.eu/privkey.pem:/etc/oz_panel/certs/key.pem"
+      - "/etc/letsencrypt/live/datahub.egi.eu/cert.pem:/etc/oz_panel/certs/cert.pem"
+      - "/etc/letsencrypt/live/datahub.egi.eu/chain.pem:/etc/oz_panel/cacerts/cacert.pem"
+      - "/etc/letsencrypt/live/datahub.egi.eu/chain.pem:/etc/oz_worker/cacerts/cacert.pem"
       # Configs
-      - "$PWD/configs/auth.config:/etc/oz_worker/auth.config"
-      - "$PWD/configs/overlay.config:/etc/oz_worker/overlay.config"
+      - "/volumes/configs/auth.config:/etc/oz_worker/auth.config"
+      - "/volumes/configs/overlay.config:/etc/oz_worker/overlay.config"
       # Utils
       - "$PWD/configs/brand-logo.svg:/var/lib/oz_worker/gui_static/assets/images/brand-logo.svg"
     ports:
