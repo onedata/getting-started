@@ -13,9 +13,8 @@ services:
       - "$PWD/letsencrypt/live/datahub.egi.eu/chain.pem:/etc/oz_panel/cacerts/cacert.pem"
       - "$PWD/letsencrypt/live/datahub.egi.eu/chain.pem:/etc/oz_worker/cacerts/cacert.pem"
       # Configs
-      - "$PWD/configs/auth.config:/var/lib/oz_worker/auth.config"
-      - "$PWD/configs/dns.config:/var/lib/oz_worker/dns.config"
-      - "$PWD/configs/app.config:/etc/oz_worker/app.config"
+      - "$PWD/configs/auth.config:/etc/oz_worker/auth.config"
+      #- "$PWD/configs/app.config:/etc/oz_worker/app.config"
       # Utils
       - "$PWD/configs/brand-logo.svg:/var/lib/oz_worker/gui_static/assets/images/brand-logo.svg"
     ports:
