@@ -2,7 +2,7 @@ version: '2.0'
 
 services:
   onezone:
-    image: onedata/onezone:18.02.0-rc8
+    image: docker.onedata.org/onezone:ID-0a6a9ff5cf # onedata/onezone:18.02.0-rc8 + new EGI group format
     #hostname: $HOST
     network_mode: host
     container_name: onezone-1
