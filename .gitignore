@@ -14,3 +14,7 @@ hs_err_pid*
 config_onezone
 config_oneprovider
 oneprovider_data
+
+.idea
+
+auth.config

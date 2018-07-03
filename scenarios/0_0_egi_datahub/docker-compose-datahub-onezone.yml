@@ -1,0 +1,51 @@
+version: '2.0'
+
+services:
+  onezone:
+    image: docker.onedata.org/onezone:ID-0a6a9ff5cf # onedata/onezone:18.02.0-rc8 + new EGI group format
+    #hostname: $HOST
+    network_mode: host
+    container_name: onezone-1
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+      - "/volumes/persistence:/volumes/persistence"
+      # Certificates
+      - "/etc/letsencrypt/live/datahub.egi.eu/privkey.pem:/etc/oz_panel/certs/web_key.pem"
+      - "/etc/letsencrypt/live/datahub.egi.eu/cert.pem:/etc/oz_panel/certs/web_cert.pem"
+      - "/etc/letsencrypt/live/datahub.egi.eu/chain.pem:/etc/oz_panel/certs/web_chain.pem"
+      # Configs
+      - "/volumes/configs/auth.config:/etc/oz_worker/auth.config"
+      - "/volumes/configs/oz_worker.overlay.config:/etc/oz_worker/overlay.config"
+      - "/volumes/configs/onepanel.overlay.config:/etc/oz_panel/overlay.config"
+      # Utils
+      - "/volumes/configs/brand-logo.svg:/var/lib/oz_worker/gui_static/assets/images/brand-logo.svg"
+    ports:
+      # dns server
+      - "53:53"
+      - "53:53/udp"
+      # http server
+      - "80:80"
+      - "443:443"
+      # distributed erlang
+      - "9443:9443"
+      - "4369:4369"
+      - "9100-9139:9100-9139"
+      # couchbase
+      - "8091:8091"
+      - "8092:8092"
+      - "11207:11207"
+      - "11209:11209"
+      - "11210:11210"
+      - "11211:11211"
+      - "18091-18092:18091-18092"
+      - "21100-21299:21100-21299"
+    environment:
+      ONEPANEL_DEBUG_MODE: "true" # if true prevents container exit on configuration error
+      ONEPANEL_LOG_LEVEL: "info"
+      ONEPANEL_BATCH_MODE: "false"
+
+networks:
+  default:
+    driver: bridge
+    driver_opts:
+      com.docker.network.driver.mtu: 1400
