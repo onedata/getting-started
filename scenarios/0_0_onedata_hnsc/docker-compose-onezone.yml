@@ -5,7 +5,7 @@ services:
     # IMPORTANT when upgrading to 18.07.0 or later:
     # Remeber to update super groups in auth/saml configs,
     # as their format was changed to a list rather than binary with slashes
-    image: docker.onedata.org/onezone:ID-4f301bc62f  # 18.02.0-rc8 + SAML rollover
+    image: docker.onedata.org/onezone:ID-27afaa1230  # 18.02.0-rc8 + SAML rollover
     container_name: onezone-1
     hostname: node1.onezone.local
     volumes:
