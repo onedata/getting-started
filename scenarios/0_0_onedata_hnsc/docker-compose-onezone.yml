@@ -19,6 +19,8 @@ services:
       # SAML SSL certificates
       - "/home/ubuntu/volume/home/ubuntu/volumes/saml_certs/saml_key.pem:/etc/oz_worker/certs/saml_key.pem"
       - "/home/ubuntu/volume/home/ubuntu/volumes/saml_certs/saml_cert.pem:/etc/oz_worker/certs/saml_cert.pem"
+      - "/home/ubuntu/volume/home/ubuntu/volumes/saml_certs/saml_rollover_cert.pem:/etc/oz_worker/certs/saml_rollover_cert.pem"
+      - "/home/ubuntu/volume/home/ubuntu/volumes/saml_certs/saml_rollover_key.pem:/etc/oz_worker/certs/saml_rollover_key.pem"
       # OpenID, SAML and env config
       - "/home/ubuntu/volume/home/ubuntu/volumes/configs/auth.config:/etc/oz_worker/auth.config"
       - "/home/ubuntu/volume/home/ubuntu/volumes/configs/saml.config:/etc/oz_worker/saml.config"
