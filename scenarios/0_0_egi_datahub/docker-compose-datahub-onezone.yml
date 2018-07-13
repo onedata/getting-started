@@ -5,7 +5,7 @@ services:
     # IMPORTANT when upgrading to 18.07.0 or later:
     # Remeber to update super groups in auth/saml configs, 
     # as their format was changed to a list rather than binary with slashes
-    image: docker.onedata.org/onezone:ID-0a6a9ff5cf # onedata/onezone:18.02.0-rc8 + new EGI group format
+    image: docker.onedata.org/onezone:ID-7e9c43d5bb # onedata/onezone:18.02.0-rc8 + new EGI group format
     #hostname: $HOST
     network_mode: host
     container_name: onezone-1
