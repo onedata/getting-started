@@ -5,7 +5,7 @@ services:
     # IMPORTANT when upgrading to 18.07.0 or later:
     # Remeber to update super groups in auth/saml configs,
     # as their format was changed to a list rather than binary with slashes
-    image: docker.onedata.org/onezone:ID-27afaa1230  # 18.02.0-rc8 + SAML rollover
+    image: docker.onedata.org/onezone:ID-4f301bc62f  # 18.02.0-rc8 + SAML rollover
     container_name: onezone-1
     hostname: node1.onezone.local
     volumes:
@@ -19,8 +19,6 @@ services:
       # SAML SSL certificates
       - "/home/ubuntu/volume/home/ubuntu/volumes/saml_certs/saml_key.pem:/etc/oz_worker/certs/saml_key.pem"
       - "/home/ubuntu/volume/home/ubuntu/volumes/saml_certs/saml_cert.pem:/etc/oz_worker/certs/saml_cert.pem"
-      - "/home/ubuntu/volume/home/ubuntu/volumes/saml_certs/saml_rollover_cert.pem:/etc/oz_worker/certs/saml_rollover_cert.pem"
-      - "/home/ubuntu/volume/home/ubuntu/volumes/saml_certs/saml_rollover_key.pem:/etc/oz_worker/certs/saml_rollover_key.pem"
       # OpenID, SAML and env config
       - "/home/ubuntu/volume/home/ubuntu/volumes/configs/auth.config:/etc/oz_worker/auth.config"
       - "/home/ubuntu/volume/home/ubuntu/volumes/configs/saml.config:/etc/oz_worker/saml.config"
