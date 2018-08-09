@@ -2,6 +2,7 @@ version: '2.0'
 
 services:
   onezone:
+    restart: always
     # IMPORTANT when upgrading to 18.07.0 or later:
     # Remeber to update super groups in auth/saml configs, 
     # as their format was changed to a list rather than binary with slashes
