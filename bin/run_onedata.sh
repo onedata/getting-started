@@ -77,6 +77,8 @@ Options:
   --provider-data-dir  a directory where provider will store users raw data
   --provider-conf-dir  directory where provider will store configuration its files
   --zone-conf-dir      directory where zone will store configuration its files
+  --latitude           sets provider's latitude (default: 50.068968)
+  --longitude          sets provider's longitude (default: 19.909444)
   --set-lat-long       sets latitude and longitude from reegeoip.net service based on your public ip's
   --clean              clean all onezone, oneprivder and oneclient configuration and data files - provided all docker containers using them have been shutdown
   --with-clean         run --clean prior to setting up service
@@ -274,6 +276,14 @@ main() {
               ;;
           --set-lat-long)
               get_log_lat_flag=1
+              ;;
+          --latitude)
+              GEO_LATITUDE=$2
+              shift
+              ;;
+          --longitude)
+              GEO_LONGITUDE=$2
+              shift
               ;;
           --detach)
               compose_up_opts="-d"
