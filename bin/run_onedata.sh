@@ -26,9 +26,9 @@ set_defaults_if_not_defined_in_env() {
   [[ -z ${GEO_LONGITUDE+x} ]] && GEO_LONGITUDE="19.909444"
 
   # Default paths
-  [[ -z ${ONEPROVIDER_DATA_DIR+x} ]] && ONEPROVIDER_DATA_DIR="${PWD}/oneprovider_data/"
-  [[ -z ${ONEPROVIDER_CONFIG_DIR+x} ]] && ONEPROVIDER_CONFIG_DIR="${PWD}/config_oneprovider/"
-  [[ -z ${ONEZONE_CONFIG_DIR+x} ]] && ONEZONE_CONFIG_DIR="${PWD}/config_onezone/"
+  [[ -z ${ONEPROVIDER_DATA_DIR+x} ]] && ONEPROVIDER_DATA_DIR="${PWD}/oneprovider_data"
+  [[ -z ${ONEPROVIDER_CONFIG_DIR+x} ]] && ONEPROVIDER_CONFIG_DIR="${PWD}/config_oneprovider"
+  [[ -z ${ONEZONE_CONFIG_DIR+x} ]] && ONEZONE_CONFIG_DIR="${PWD}/config_onezone"
   [[ -z ${AUTH_PATH+x} ]] && AUTH_PATH="${REPO_ROOT}${AUTH_CONF}"
 
   # Default names for provider and zone
@@ -123,12 +123,12 @@ clean() {
   [[ $(git status --porcelain "$PROVIDER_COMPOSE_FILE") != ""  ]] && echo "Warrning the file $PROVIDER_COMPOSE_FILE has changed, the cleaning procedure may not work!"
 
   echo "Removing provider and/or zone config dirs..."
-  sudo rm -rf "${ONEZONE_CONFIG_DIR}/*"
-  sudo rm -rf "${ONEPROVIDER_CONFIG_DIR}/*"
+  sudo find "${ONEZONE_CONFIG_DIR}" -mindepth 1 -delete
+  sudo find "${ONEPROVIDER_CONFIG_DIR}" -mindepth 1 -delete
 
 
   echo "Removing provider data dir..."
-  sudo rm -rf "${ONEPROVIDER_DATA_DIR}/*"
+  sudo find "${ONEPROVIDER_DATA_DIR}" -mindepth 1 -delete
 
   echo "Removing Onedata containers..."
   if (docker rm -vf 'onezone-1' 2>/dev/null) ; then
