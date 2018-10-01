@@ -79,7 +79,7 @@ Options:
   --zone-conf-dir      directory where zone will store configuration its files
   --latitude           sets provider's latitude (default: 50.068968)
   --longitude          sets provider's longitude (default: 19.909444)
-  --set-lat-long       sets latitude and longitude from reegeoip.net service based on your public ip's
+  --set-lat-long       sets latitude and longitude from ipstack.net service based on your public ip's
   --clean              clean all onezone, oneprivder and oneclient configuration and data files - provided all docker containers using them have been shutdown
   --with-clean         run --clean prior to setting up service
   --without-clean      prevents running --clean prior to setting up service
@@ -89,8 +89,7 @@ Options:
 }
 
 get_log_lat(){
-  ip="$(curl http://ipinfo.io/ip)"
-  read -r GEO_LATITUDE GEO_LONGITUDE <<< $(curl freegeoip.net/xml/"$ip" | grep -E "Latitude|Longitude" | cut -d '>' -f 2 | cut -d '<' -f 1)
+  read -r GEO_LATITUDE GEO_LONGITUDE <<< $(curl http://api.ipstack.com/check?access_key=28271ba621c88334145d67ae3748ce94 | tr ',' '\n' | grep -E "latitude|longitude" | cut -d ':' -f 2)
 }
 
 debug() {
