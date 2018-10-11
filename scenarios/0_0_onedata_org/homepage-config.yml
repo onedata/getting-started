@@ -1,5 +1,5 @@
 docs:
-  docker: docker.onedata.org/onedata-documentation:VFS-4930
+  docker: docker.onedata.org/onedata-documentation:ID-a4de27b21d
   output-path: /volumes/docs
 gui:
   docker: docker.onedata.org/oz-gui-homepage:18.02.0-beta1
