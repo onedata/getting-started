@@ -14,10 +14,6 @@ services:
       - "/var/run/docker.sock:/var/run/docker.sock"
       # configuration persistence
       - "/volumes/persistence:/volumes/persistence"
-      # Server SSL certificates
-      - "/volumes/web_certs/web_key.pem:/etc/oz_panel/certs/web_key.pem"
-      - "/volumes/web_certs/web_cert.pem:/etc/oz_panel/certs/web_cert.pem"
-      - "/volumes/web_certs/web_chain.pem:/etc/oz_panel/certs/web_chain.pem"
       # OpenID and env config
       - "/volumes/configs/auth.config:/etc/oz_worker/auth.config"
       - "/volumes/configs/oz-worker-overlay.config:/etc/oz_worker/overlay.config"
