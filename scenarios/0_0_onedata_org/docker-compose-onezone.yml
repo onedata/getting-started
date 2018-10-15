@@ -14,10 +14,6 @@ services:
       - "/var/run/docker.sock:/var/run/docker.sock"
       # configuration persistence
       - "/volumes/persistence:/volumes/persistence"
-      # Server SSL certificates
-      - "/volumes/web_certs/web_key.pem:/etc/oz_panel/certs/web_key.pem"
-      - "/volumes/web_certs/web_cert.pem:/etc/oz_panel/certs/web_cert.pem"
-      - "/volumes/web_certs/web_chain.pem:/etc/oz_panel/certs/web_chain.pem"
       # Additional, trusted CA certificates (any filename is accepted)
       #- "${OZ_CACERTS_PATH}:/etc/oz_panel/cacerts/customCaBundle.pem"
       # OpenID and env config
