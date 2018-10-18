@@ -3,7 +3,7 @@ version: '2.0'
 services:
   node1.onezone:
     restart: always
-    image: docker.onedata.org/onezone:ID-33a17be0e4  # preliminary rc12 
+    image: docker.onedata.org/onezone:ID-b9fb42ae9f  # preliminary rc12 
     hostname: node1.onezone.local
     # dns: 8.8.8.8 # uncomment if container can't ping any domain
     container_name: onezone-1
