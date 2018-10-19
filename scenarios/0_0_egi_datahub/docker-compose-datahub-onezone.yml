@@ -13,10 +13,6 @@ services:
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock"
       - "/volumes/persistence:/volumes/persistence"
-      # Certificates
-      - "/etc/letsencrypt/live/datahub.egi.eu/privkey.pem:/etc/oz_panel/certs/web_key.pem"
-      - "/etc/letsencrypt/live/datahub.egi.eu/cert.pem:/etc/oz_panel/certs/web_cert.pem"
-      - "/etc/letsencrypt/live/datahub.egi.eu/chain.pem:/etc/oz_panel/certs/web_chain.pem"
       # Configs
       - "/volumes/configs/auth.config:/etc/oz_worker/auth.config"
       - "/volumes/configs/oz_worker.overlay.config:/etc/oz_worker/overlay.config"
