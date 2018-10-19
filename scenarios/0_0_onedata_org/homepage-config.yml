@@ -1,5 +1,5 @@
 docs:
-  docker: docker.onedata.org/onedata-documentation:ID-f5894dcf98
+  docker: docker.onedata.org/onedata-documentation:ID-233fd21daf
   output-path: /volumes/docs
 gui:
   docker: docker.onedata.org/oz-gui-homepage:18.02.0-beta1
