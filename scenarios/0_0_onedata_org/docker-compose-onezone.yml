@@ -3,10 +3,8 @@ version: '2.0'
 services:
   node1.onezone:
     restart: always
-    # IMPORTANT when upgrading to 18.07.0 or later:
-    # Remeber to update super groups in auth/saml configs,
-    # as their format was changed to a list rather than binary with slashes
-    image: docker.onedata.org/onezone:18.02.0-rc11
+    # Note: after upgrade to version above rc13, mounting custom entitlement parser is no longer needed
+    image: docker.onedata.org/onezone:ID-3f49c8c6cd  # rc13 + new handle API
     hostname: node1.onezone.local
     # dns: 8.8.8.8 # uncomment if container can't ping any domain
     container_name: onezone-1
@@ -18,6 +16,8 @@ services:
       - "/volumes/configs/auth.config:/etc/oz_worker/auth.config"
       - "/volumes/configs/oz-worker-overlay.config:/etc/oz_worker/overlay.config"
       - "/volumes/configs/oz-panel-overlay.config:/etc/oz_panel/overlay.config"
+      # Custom parser for PlGrid groups
+      - "/volumes/configs/custom_entitlement_parser.erl:/etc/oz_worker/auth_plugins/custom_entitlement_parser.erl"
       # Homepage static files
       - "/volumes/gui:/var/www/html/oz_worker"
       - "/volumes/docs:/var/www/html/oz_worker/docs"
