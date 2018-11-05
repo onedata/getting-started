@@ -3,34 +3,21 @@ version: '2.0'
 services:
   node1.onezone:
     restart: always
-    # IMPORTANT when upgrading to 18.07.0 or later:
-    # Remeber to update super groups in auth/saml configs,
-    # as their format was changed to a list rather than binary with slashes
-    image: docker.onedata.org/onezone:18.02.0-rc11
+    image: docker.onedata.org/onezone:ID-3f49c8c6cd  # rc13 + new handle API
     container_name: onezone-1
     hostname: node1.onezone.local
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock"
       # Database persistence
-      - "/home/ubuntu/volume/home/ubuntu/volumes/persistence:/volumes/persistence"
-      # Server SSL certificates
-      - "/home/ubuntu/volume/home/ubuntu/volumes/web_certs/web_key.pem:/etc/oz_panel/certs/web_key.pem"
-      - "/home/ubuntu/volume/home/ubuntu/volumes/web_certs/web_cert.pem:/etc/oz_panel/certs/web_cert.pem"
-      - "/home/ubuntu/volume/home/ubuntu/volumes/web_certs/web_chain.pem:/etc/oz_panel/certs/web_chain.pem"
-      # SAML SSL certificates
-      - "/home/ubuntu/volume/home/ubuntu/volumes/saml_certs/saml_key.pem:/etc/oz_worker/certs/saml_key.pem"
-      - "/home/ubuntu/volume/home/ubuntu/volumes/saml_certs/saml_cert.pem:/etc/oz_worker/certs/saml_cert.pem"
+      - "/opt/onedata/volumes/persistence:/volumes/persistence"
       # OpenID, SAML and env config
-      - "/home/ubuntu/volume/home/ubuntu/volumes/configs/auth.config:/etc/oz_worker/auth.config"
-      - "/home/ubuntu/volume/home/ubuntu/volumes/configs/saml.config:/etc/oz_worker/saml.config"
-      - "/home/ubuntu/volume/home/ubuntu/volumes/configs/overlay.config:/etc/oz_worker/overlay.config"
+      - "/opt/onedata/volumes/configs/auth.config:/etc/oz_worker/auth.config"
+      - "/opt/onedata/volumes/configs/overlay.config:/etc/oz_worker/overlay.config"
     ports:
       - "53:53"
       - "53:53/udp"
       - "80:80"
       - "443:443"
-      # Temporary expose for compatibility with 18.02.0-beta1 Oneproviders
-      - "6666:6666"
       - "9443:9443"
     environment:
       #ONEPANEL_DEBUG_MODE: "true" # prevents container exit on configuration error
@@ -69,8 +56,8 @@ services:
             nodes:
               - "n1"
         onezone:
-          name: "OTC HNSC"
-          domainName: "onedata.hnsc.otc-service.com"
+          name: "Onedata - PLGrid"
+          domainName: "onedata.plgrid.pl"
         onepanel:
           users:
             "admin":
