@@ -64,3 +64,9 @@ services:
             "admin":
               password: "${ADMIN_PASSWORD}"
               userRole: "admin"
+
+networks:
+  default:
+    driver: bridge
+    driver_opts:
+      com.docker.network.driver.mtu: 1400
