@@ -12,7 +12,8 @@ services:
       - "/opt/onedata/volumes/persistence:/volumes/persistence"
       # OpenID, SAML and env config
       - "/opt/onedata/volumes/configs/auth.config:/etc/oz_worker/auth.config"
-      - "/opt/onedata/volumes/configs/overlay.config:/etc/oz_worker/overlay.config"
+      - "/opt/onedata/volumes/configs/oz-worker.overlay.config:/etc/oz_worker/overlay.config"
+      - "/opt/onedata/volumes/configs/oz-panel.overlay.config:/etc/oz_panel/overlay.config"
     ports:
       - "53:53"
       - "53:53/udp"
