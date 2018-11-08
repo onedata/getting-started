@@ -1,6 +1,6 @@
 docs:
-  docker: docker.onedata.org/onedata-documentation:ID-0fb5e8b72f
+  docker: docker.onedata.org/onedata-documentation:ID-63e43add02
   output-path: /volumes/docs
 gui:
-  docker: docker.onedata.org/oz-gui-homepage:ID-c114e88bbd
+  docker: docker.onedata.org/oz-gui-homepage:VFS-5062-fix-homepage-test-login
   output-path: /volumes/gui
