@@ -3,7 +3,7 @@ version: '2.0'
 services:
   onezone:
     restart: always
-    image: docker.onedata.org/onezone:18.02.0-rc12
+    image: docker.onedata.org/onezone:18.02.0-rc13
     #hostname: $HOST
     network_mode: host
     container_name: onezone-1
@@ -16,7 +16,6 @@ services:
       - "/volumes/configs/onepanel.overlay.config:/etc/oz_panel/overlay.config"
       # Utils
       - "/volumes/configs/brand-logo.svg:/var/lib/oz_worker/gui_static/assets/images/brand-logo.svg"
-      - "/volumes/configs/custom_entitlement_parser.erl:/etc/oz_worker/auth_plugins/custom_entitlement_parser.erl"
     ports:
       # dns server
       - "53:53"
