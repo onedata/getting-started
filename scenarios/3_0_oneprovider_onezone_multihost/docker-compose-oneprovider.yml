@@ -10,6 +10,7 @@ services:
         - "/var/run/docker.sock:/var/run/docker.sock"
         # configuration persistence
         - "${ONEPROVIDER_CONFIG_DIR}:/volumes/persistence"
+        # Default configuration override
         - "${PWD}/op-worker-overlay.config:/etc/op_worker/overlay.config"
         - "${PWD}/op-panel-overlay.config:/etc/op_panel/overlay.config"
         # data persistence
