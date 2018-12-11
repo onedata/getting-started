@@ -10,6 +10,9 @@ services:
         - "/var/run/docker.sock:/var/run/docker.sock"
         # configuration persistence
         - "${ONEZONE_CONFIG_DIR}:/volumes/persistence"
+        # Default configuration override
+        - "${PWD}/oz-worker-overlay.config:/etc/oz_worker/overlay.config"
+        - "${PWD}/oz-panel-overlay.config:/etc/oz_panel/overlay.config"
         # OpenId configuration
         #- "${AUTH_PATH}:/etc/oz_worker/auth.config"
         # Server SSL certificates
