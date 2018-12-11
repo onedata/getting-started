@@ -66,6 +66,8 @@ services:
         onezone:
           name: "${ZONE_NAME}"
           domainName: "node1.onezone"
+          policies:
+            subdomainDelegation: false
         onepanel:
           users:
             "admin":
