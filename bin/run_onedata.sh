@@ -108,8 +108,8 @@ is_clean_needed () {
   return 1
 }
 
-clean() {
 
+clean() {
   echo "The cleaning procedure will need to run commands using sudo, in order to remove volumes created by docker. Please provide a password if needed."
   # Make sure only root can run our script
 
@@ -118,30 +118,54 @@ clean() {
   # exit 1
   #fi
 
+  if [[ "$1" == "onezone" ]]; then
+    clean_onezone
+  elif [[ "$1" == "oneprovider" ]]; then
+    clean_oneprovider
+  else
+    clean_onezone
+    clean_oneprovider
+  fi
+
+  clean_scenario
+}
+
+clean_onezone() {
   [[ $(git status --porcelain "$ZONE_COMPOSE_FILE") != ""  ]] && echo "Warrning the file $ZONE_COMPOSE_FILE has changed, the cleaning procedure may not work!"
+
+  echo "Removing Onezone config dirs..."
+  sudo find "${ONEZONE_CONFIG_DIR}" -mindepth 1 -delete
+
+  echo "Removing Onezone containers..."
+  if (docker rm -vf 'onezone-1' 2>/dev/null) ; then
+    echo Removed Onezone container onezone-1.
+  fi
+
+  echo "Removing Oneprovider containers..."
+  if (docker rm -vf 'oneprovider-1' 2>/dev/null) ; then
+    echo Removed Oneprovider container oneprovider-1.
+  fi
+
+  echo "This is the output of 'docker ps -a' command, please make sure that there are no Onezone containers listed!"
+  docker ps -a
+}
+
+clean_oneprovider() {
   [[ $(git status --porcelain "$PROVIDER_COMPOSE_FILE") != ""  ]] && echo "Warrning the file $PROVIDER_COMPOSE_FILE has changed, the cleaning procedure may not work!"
 
   echo "Removing provider and/or zone config dirs..."
-  sudo find "${ONEZONE_CONFIG_DIR}" -mindepth 1 -delete
   sudo find "${ONEPROVIDER_CONFIG_DIR}" -mindepth 1 -delete
-
 
   echo "Removing provider data dir..."
   sudo find "${ONEPROVIDER_DATA_DIR}" -mindepth 1 -delete
 
-  echo "Removing Onedata containers..."
-  if (docker rm -vf 'onezone-1' 2>/dev/null) ; then
-    echo Removed onezone container onezone-1.
-  fi
-
+  echo "Removing Oneprovider containers..."
   if (docker rm -vf 'oneprovider-1' 2>/dev/null) ; then
-    echo Removed onezone container onezone-1.
+    echo Removed Oneprovider container oneprovider-1.
   fi
 
-  echo "This is the output of 'docker ps -a' command, please make sure that there are no onedata containers listed!"
+  echo "This is the output of 'docker ps -a' command, please make sure that there are no Oneprovider containers listed!"
   docker ps -a
-
-  clean_scenario
 }
 
 batch_mode_check() {
@@ -310,7 +334,7 @@ main() {
       read -r keep_old_config
     fi
     if [[ $keep_old_config == 'n' ]]; then
-        clean
+        clean $service
     fi
   fi
 
