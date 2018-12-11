@@ -3,7 +3,7 @@ version: '2.0'
 services:
   node1.onezone:
     image: onedata/onezone:18.02.0-rc13
-    hostname: node1.onezone.local
+    hostname: node1.onezone
     # dns: 8.8.8.8 # uncomment if container can't ping any domain
     container_name: onezone-1
     volumes:
@@ -48,7 +48,7 @@ services:
 
       ONEZONE_CONFIG: |
         cluster:
-          domainName: "onezone.local"
+          domainName: "onezone"
           autoDeploy: true
           nodes:
             n1:
