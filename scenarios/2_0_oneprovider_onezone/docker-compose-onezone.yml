@@ -59,7 +59,7 @@ services:
               - "n1"
         onezone:
           name: "${ZONE_NAME}"
-          domainName: "onezone"
+          domainName: "node1.onezone"
         onepanel:
           users:
             "admin":
