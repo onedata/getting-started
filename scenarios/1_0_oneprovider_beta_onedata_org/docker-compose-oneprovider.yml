@@ -35,7 +35,6 @@ services:
       #ONEPANEL_DEBUG_MODE: "true" # prevents container exit on configuration error
       ONEPANEL_LOG_LEVEL: "none" # prints logs to stdout (possible values: none, debug, info, error), by default set to info
       ONEPANEL_BATCH_MODE: "true"
-
       # If enabled, a new web cert will be generated with CN matching the
       #   ONEPANEL_GENERATED_CERT_DOMAIN and signed by OnedataTestWebServerCa
       # NOTE: The generation will be performed upon every startup, any
@@ -50,7 +49,6 @@ services:
       # WARNING: This functionality is devised for test purposes and must not
       #   be used in production.
       ONEPANEL_TRUST_TEST_CA: "false"  # default: false
-
       ONEPROVIDER_CONFIG: |
         cluster:
           domainName: "oneprovider"
@@ -74,6 +72,15 @@ services:
         oneprovider:
           register: true
           name: "${PROVIDER_NAME}"
+          # "false" in subdomainDelegation means that provider admin
+          #         manages its DNS on its own and provider is available
+          #         under the domain given in "domain" field
+          # "true" means provider is using a subdomain given in "subdomain"
+          #        config field which is registered under the onezone domain
+          #        given in a config in the onezone domain
+          # Note that for subdomainDelegation "true" to work onezone with
+          # properly configured DNS zone delegation and external IP is needed.
+          # This onezone setup is not covered by the getting-started scenarios.
           subdomainDelegation: false
           domain: "${PROVIDER_FQDN}" # OR IP ADDRESS
           adminEmail: "getting-started@onedata.org"

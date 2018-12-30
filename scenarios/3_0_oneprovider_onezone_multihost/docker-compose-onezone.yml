@@ -40,7 +40,6 @@ services:
       ONEPANEL_LOG_LEVEL: "none" # prints logs to stdout (possible values: none, debug, info, error), by default set to info
       # Used for test purposes, disable when you have your own web cert mounted via volumes.
       # Cert will be generated only if none is found under cert path.
-
       # If enabled, a new web cert will be generated with CN matching the
       #   ONEPANEL_GENERATED_CERT_DOMAIN and signed by OnedataTestWebServerCa
       # NOTE: The generation will be performed upon every startup, any
@@ -55,7 +54,6 @@ services:
       # WARNING: This functionality is devised for test purposes and must not
       #   be used in production.
       ONEPANEL_TRUST_TEST_CA: "true"  # default: false
-
       ONEZONE_CONFIG: |
         cluster:
           domainName: "onezone"

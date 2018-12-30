@@ -39,6 +39,5 @@ services:
       #   be used in production.
       ONEPANEL_TRUST_TEST_CA: "true"  # default: false
 
-
 networks:
   scenario2:
