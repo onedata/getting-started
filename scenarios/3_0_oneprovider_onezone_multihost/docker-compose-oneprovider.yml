@@ -68,6 +68,10 @@ services:
             nodes:
               - "n1"
           databases:
+            # Per node Couchbase cache size in MB for all buckets
+            serverQuota: 4096
+            # Per bucket Couchbase cache size in MB across the cluster
+            bucketQuota: 1024
             nodes:
               - "n1"
           storages:
