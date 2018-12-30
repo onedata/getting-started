@@ -26,6 +26,14 @@ services:
         #- "${OZ_CHAIN_PATH}:/etc/oz_panel/certs/web_chain.pem"
         # Additional, trusted CA certificates (any filename is accepted)
         #- "${OZ_CACERTS_PATH}:/etc/oz_panel/cacerts/customCaBundle.pem"
+    ulimits:
+      # No core dumps created by rtransfer. TODO: Should be removed in the future.
+      core: 0
+      # For couchbase file limit to work on centos 7
+      nproc: 65535
+      nofile:
+        soft: 65535
+        hard: 65535
     environment:
       #ONEPANEL_DEBUG_MODE: "true" # prevents container exit on configuration error
       ONEPANEL_BATCH_MODE: "true"
