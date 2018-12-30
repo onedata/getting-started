@@ -27,7 +27,6 @@ services:
       #ONEPANEL_DEBUG_MODE: "true" # prevents container exit on configuration error
       ONEPANEL_LOG_LEVEL: "none" # prints logs to stdout (possible values: none, debug, info, error), by default set to info
       ONEPANEL_BATCH_MODE: "true"
-
       # If enabled, a new web cert will be generated with CN matching the
       #   ONEPANEL_GENERATED_CERT_DOMAIN and signed by OnedataTestWebServerCa
       # NOTE: The generation will be performed upon every startup, any
@@ -42,7 +41,6 @@ services:
       # WARNING: This functionality is devised for test purposes and must not
       #   be used in production.
       ONEPANEL_TRUST_TEST_CA: "true"  # default: false
-
       ONEPROVIDER_CONFIG: |
         cluster:
           domainName: "oneprovider"
