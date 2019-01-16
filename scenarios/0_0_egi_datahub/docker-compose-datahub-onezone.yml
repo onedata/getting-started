@@ -14,6 +14,8 @@ services:
       - "/volumes/configs/auth.config:/etc/oz_worker/auth.config"
       - "/volumes/configs/oz_worker.overlay.config:/etc/oz_worker/overlay.config"
       - "/volumes/configs/onepanel.overlay.config:/etc/oz_panel/overlay.config"
+      # Custom parser for EGI groups - not needed in versions > 18.02.1 
+      - "/volumes/configs/custom_entitlement_parser.erl:/etc/oz_worker/auth_plugins/custom_entitlement_parser.erl"
       # Utils
       - "/volumes/configs/brand-logo.svg:/var/lib/oz_worker/gui_static/assets/images/brand-logo.svg"
     ports:
