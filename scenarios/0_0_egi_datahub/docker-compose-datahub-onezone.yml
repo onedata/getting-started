@@ -17,6 +17,7 @@ services:
       # Custom patches - not needed in versions > 18.02.1
       - "/volumes/configs/custom_entitlement_parser.erl:/etc/oz_worker/auth_plugins/custom_entitlement_parser.erl"
       - "/volumes/configs/handle_logic_plugin.beam:/usr/lib/oz_worker/lib/oz_worker-18.02.0-rc13/ebin/handle_logic_plugin.beam"
+      - "/volumes/configs/provider_gs_translator.beam:/usr/lib/oz_worker/lib/oz_worker-18.02.0-rc13/ebin/provider_gs_translator.beam"
       # Utils
       - "/volumes/configs/brand-logo.svg:/var/lib/oz_worker/gui_static/assets/images/brand-logo.svg"
     ports:
