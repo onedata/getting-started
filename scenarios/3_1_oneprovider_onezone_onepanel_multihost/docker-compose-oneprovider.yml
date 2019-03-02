@@ -15,6 +15,8 @@ services:
         - "${PWD}/op-panel-overlay.config:/etc/op_panel/overlay.config"
         # data persistence
         - "${ONEPROVIDER_DATA_DIR}:/volumes/storage"
+        # the host filesystem
+        - "/:/host/"
         # Server SSL certificates
         #- "${OP_PRIV_KEY_PATH}:/etc/op_panel/certs/web_key.pem"
         #- "${OP_CERT_PATH}:/etc/op_panel/certs/web_cert.pem"
