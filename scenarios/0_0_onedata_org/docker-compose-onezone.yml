@@ -3,8 +3,7 @@ version: '2.0'
 services:
   node1.onezone:
     restart: always
-    # Note: after upgrade to version above rc13, mounting custom entitlement parser is no longer needed
-    image: docker.onedata.org/onezone:ID-3f49c8c6cd  # rc13 + new handle API
+    image: docker.onedata.org/onezone:ID-ef549657d7
     hostname: node1.onezone.local
     # dns: 8.8.8.8 # uncomment if container can't ping any domain
     container_name: onezone-1
@@ -17,11 +16,9 @@ services:
       # OpenID and env config
       - "/volumes/configs/auth.config:/etc/oz_worker/auth.config"
       - "/volumes/configs/overlay.config:/etc/oz_worker/overlay.config"
-      # Custom parser for PlGrid groups
-      - "/volumes/configs/custom_entitlement_parser.erl:/etc/oz_worker/auth_plugins/custom_entitlement_parser.erl"
       # Homepage static files
-      - "/volumes/gui:/var/www/html/oz_worker"
-      - "/volumes/docs:/var/www/html/oz_worker/docs"
+      # - "/volumes/gui:/var/www/html/oz_worker"
+      # - "/volumes/docs:/var/www/html/oz_worker/docs"
     ports:
       - "53:53"
       - "53:53/udp"
