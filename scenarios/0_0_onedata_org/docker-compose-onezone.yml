@@ -16,6 +16,7 @@ services:
       - "/volumes/configs/auth.config:/etc/oz_worker/auth.config"
       - "/volumes/configs/oz-worker-overlay.config:/etc/oz_worker/overlay.config"
       - "/volumes/configs/oz-panel-overlay.config:/etc/oz_panel/overlay.config"
+      - "/volumes/configs/xdc.png:/var/www/html/custom/oz_worker/xdc.png"
       # Custom parser for PlGrid groups
       - "/volumes/configs/custom_entitlement_parser.erl:/etc/oz_worker/auth_plugins/custom_entitlement_parser.erl"
       # Homepage static files
