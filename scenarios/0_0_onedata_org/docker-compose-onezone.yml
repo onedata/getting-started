@@ -16,6 +16,7 @@ services:
       # OpenID and env config
       - "/volumes/configs/auth.config:/etc/oz_worker/auth.config"
       - "/volumes/configs/overlay.config:/etc/oz_worker/overlay.config"
+      - "/volumes/configs/xdc.png:/var/www/html/custom/oz_worker/xdc.png"
       # Homepage static files
       # - "/volumes/gui:/var/www/html/oz_worker"
       # - "/volumes/docs:/var/www/html/oz_worker/docs"
