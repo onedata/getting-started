@@ -3,7 +3,7 @@ version: '2.0'
 services:
   node1.onezone:
     restart: always
-    image: docker.onedata.org/onezone:ID-65427e6ffd
+    image: docker.onedata.org/onezone:18.07.0-alpha-2bc7ab9
     hostname: node1.onezone.local
     # dns: 8.8.8.8 # uncomment if container can't ping any domain
     container_name: onezone-1
@@ -16,7 +16,7 @@ services:
       # OpenID and env config
       - "/volumes/configs/auth.config:/etc/oz_worker/auth.config"
       - "/volumes/configs/overlay.config:/etc/oz_worker/overlay.config"
-      - "/volumes/configs/xdc.png:/var/www/html/custom/oz_worker/xdc.png"
+      - "/volumes/configs/xdc.png:/var/www/html/oz_worker/custom/xdc.png"
       # Homepage static files
       # - "/volumes/gui:/var/www/html/oz_worker"
       # - "/volumes/docs:/var/www/html/oz_worker/docs"
@@ -65,8 +65,8 @@ services:
             nodes:
               - "n1"
         onezone:
-          name: "BETA"
-          domainName: "beta.onedata.org"
+          name: "DEMO"
+          domainName: "demo.onedata.org"
         onepanel:
           users:
             "admin":
