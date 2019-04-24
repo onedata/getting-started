@@ -17,6 +17,7 @@ services:
       - "/volumes/configs/auth.config:/etc/oz_worker/auth.config"
       - "/volumes/configs/overlay.config:/etc/oz_worker/overlay.config"
       - "/volumes/configs/xdc.png:/var/www/html/oz_worker/custom/xdc.png"
+      - "/volumes/configs/deep.png:/var/www/html/oz_worker/custom/deep.png"
       # Homepage static files
       # - "/volumes/gui:/var/www/html/oz_worker"
       # - "/volumes/docs:/var/www/html/oz_worker/docs"
