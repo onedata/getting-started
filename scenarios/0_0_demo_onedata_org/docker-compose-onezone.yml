@@ -3,7 +3,7 @@ version: '2.0'
 services:
   node1.onezone:
     restart: always
-    image: docker.onedata.org/onezone:18.07.0-alpha-2bc7ab9
+    image: docker.onedata.org/onezone:19.02.0-beta1
     hostname: node1.onezone.local
     # dns: 8.8.8.8 # uncomment if container can't ping any domain
     container_name: onezone-1
