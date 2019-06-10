@@ -31,6 +31,7 @@ services:
       #ONEPANEL_DEBUG_MODE: "true" # prevents container exit on configuration error
       ONEPANEL_BATCH_MODE: "true"
       ONEPANEL_LOG_LEVEL: "none" # prints logs to stdout (possible values: none, debug, info, error), by default set to info
+      ONEPANEL_EMERGENCY_PASSPHRASE: ${ONEPANEL_EMERGENCY_PASSPHRASE}
       # Used for test purposes, disable when you have your own web cert mounted via volumes.
       # Cert will be generated only if none is found under cert path.
 
@@ -68,9 +69,4 @@ services:
         onezone:
           name: "DEMO"
           domainName: "demo.onedata.org"
-        onepanel:
-          users:
-            "admin":
-              password: "${ADMIN_PASSWORD}"
-              userRole: "admin"
 
