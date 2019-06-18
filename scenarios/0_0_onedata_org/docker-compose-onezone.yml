@@ -3,6 +3,8 @@ version: '2.0'
 services:
   node1.onezone:
     restart: always
+    # NOTE! When upgrading to 19.02.*, make sure to upgrade auth.config and 
+    # add EMERGENCY PASSPHRASE to env section.
     image: docker.onedata.org/onezone:ID-65427e6ffd
     hostname: node1.onezone.local
     # dns: 8.8.8.8 # uncomment if container can't ping any domain
