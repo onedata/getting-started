@@ -4,6 +4,8 @@ services:
   node1.onezone:
     restart: always
     # Note: after upgrade to version above rc13, mounting custom entitlement parser is no longer needed
+    # NOTE! When upgrading to 19.02.*, make sure to upgrade auth.config and 
+    # add EMERGENCY PASSPHRASE to env section.
     image: docker.onedata.org/onezone:ID-3f49c8c6cd  # rc13 + new handle API
     container_name: onezone-1
     hostname: node1.onezone.local
