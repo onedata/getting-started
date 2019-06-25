@@ -1,5 +1,5 @@
 docs:
-  docker: docker.onedata.org/onedata-documentation:ID-24de20ab56
+  docker: docker.onedata.org/onedata-documentation:ID-6daf876729
   output-path: /volumes/docs
 gui:
   docker: docker.onedata.org/oz-gui-homepage:VFS-5065-random-anchor-failure
