@@ -38,6 +38,9 @@ services:
       # WARNING: This functionality is devised for test purposes and must not
       #   be used in production.
       ONEPANEL_TRUST_TEST_CA: "true"  # default: false
+      # Default password to access onepanel emergency interface
+      # and admin account in onezone
+      ONEPANEL_EMERGENCY_PASSPHRASE: "password"
 
 networks:
   scenario2:

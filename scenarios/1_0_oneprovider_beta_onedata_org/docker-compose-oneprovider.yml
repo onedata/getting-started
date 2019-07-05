@@ -49,6 +49,8 @@ services:
       # WARNING: This functionality is devised for test purposes and must not
       #   be used in production.
       ONEPANEL_TRUST_TEST_CA: "false"  # default: false
+      # Default password to access onepanel emergency interface
+      ONEPANEL_EMERGENCY_PASSPHRASE: "password"
       ONEPROVIDER_CONFIG: |
         cluster:
           domainName: "oneprovider"
@@ -87,16 +89,11 @@ services:
           # This onezone setup is not covered by the getting-started scenarios.
           subdomainDelegation: false
           domain: "${PROVIDER_FQDN}" # OR IP ADDRESS
+          redirectionPoint: "${PROVIDER_FQDN}" # OR IP ADDRESS
+          # Oneprovider Registration token acquired in runtime from Onezone
+          token: "${PROVIDER_REGISTRATION_TOKEN}"
           adminEmail: "getting-started@onedata.org"
           geoLatitude: ${GEO_LATITUDE}
           geoLongitude: ${GEO_LONGITUDE}
         onezone:
           domainName: "${ZONE_FQDN}" # OR IP ADDRESS
-        onepanel:
-          users:
-            "admin":
-              password: "password"
-              userRole: "admin"
-            "user":
-              password: "password"
-              userRole: "regular"

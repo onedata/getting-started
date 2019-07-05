@@ -41,6 +41,9 @@ services:
       # WARNING: This functionality is devised for test purposes and must not
       #   be used in production.
       ONEPANEL_TRUST_TEST_CA: "true"  # default: false
+      # Default password to access onepanel emergency interface
+      # and admin account in onezone
+      ONEPANEL_EMERGENCY_PASSPHRASE: "password"
       ONEZONE_CONFIG: |
         cluster:
           domainName: "onezone"
@@ -67,14 +70,9 @@ services:
           domainName: "node1.onezone"
           policies:
             subdomainDelegation: false
-        onepanel:
           users:
-            "admin":
-              password: "password"
-              userRole: "admin"
-            "user":
-              password: "password"
-              userRole: "regular"
+            - username: user
+              password: password
 
 networks:
   scenario2:

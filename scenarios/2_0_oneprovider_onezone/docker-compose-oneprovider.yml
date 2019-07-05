@@ -41,6 +41,8 @@ services:
       # WARNING: This functionality is devised for test purposes and must not
       #   be used in production.
       ONEPANEL_TRUST_TEST_CA: "true"  # default: false
+      # Default password to access onepanel emergency interface
+      ONEPANEL_EMERGENCY_PASSPHRASE: "password"
       ONEPROVIDER_CONFIG: |
         cluster:
           domainName: "oneprovider"
@@ -70,19 +72,14 @@ services:
           name: "${PROVIDER_NAME}"
           subdomainDelegation: false
           domain: "node1.oneprovider" # OR DOCKER IP ADDRESS
+          redirectionPoint: "${PROVIDER_FQDN}" # OR IP ADDRESS
+          # Oneprovider Registration token acquired in runtime from Onezone
+          token: "${PROVIDER_REGISTRATION_TOKEN}"
           adminEmail: "getting-started@onedata.org"
           geoLatitude: ${GEO_LATITUDE}
           geoLongitude: ${GEO_LONGITUDE}
         onezone:
           domainName: "node1.onezone" # OR DOCKER IP ADDRESS
-        onepanel:
-          users:
-            "admin":
-              password: "password"
-              userRole: "admin"
-            "user":
-              password: "password"
-              userRole: "regular"
 
 networks:
   scenario2:
