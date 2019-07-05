@@ -2,7 +2,7 @@ version: '2.0'
 
 services:
   node1.oneprovider:
-    image: onedata/oneprovider:18.02.1
+    image: onedata/oneprovider:19.02.0-beta1
     container_name: oneprovider-1
     hostname: node1
     domainname: oneprovider

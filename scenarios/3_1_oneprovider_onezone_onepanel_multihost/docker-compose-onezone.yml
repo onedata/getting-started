@@ -2,7 +2,7 @@ version: '2.0'
 
 services:
   node1.onezone:
-    image: onedata/onezone:18.02.0-rc13
+    image: onedata/onezone:19.02.0-beta1
     container_name: onezone-1
     hostname: node1
     domainname: onezone
