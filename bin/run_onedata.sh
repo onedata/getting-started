@@ -73,6 +73,7 @@ Options:
   --zone               starts onezone service
   --provider           starts oneprovider service
   --provider-fqdn      FQDN for oneprovider (not providing this option causes a script to try to guess public ip using http://ipinfo.io/ip service)
+  --provider-token     oneprovider registration token, issued by a onezone the oneprovider want to register with
   --zone-fqdn          FQDN for onezone (defaults to beta.onedata.org)
   --provider-data-dir  a directory where provider will store users raw data
   --provider-conf-dir  directory where provider will store configuration its files
@@ -208,19 +209,26 @@ handle_oneprovider() {
   local compose_file_name=$2
   local compose_up_opts=$3
 
+  if [[ -z ${PROVIDER_REGISTRATION_TOKEN+x} ]]; then
+    echo "From version 19.02.* when deploying Oneprovider you need to supply a registration token."
+    echo "The token can be acquired from a Onezone GUI or by REST."
+    echo "Without it the deployment cannot continue. Exiting..."
+    exit 1
+  fi
+
   mkdir -p "$ONEPROVIDER_CONFIG_DIR"
   mkdir -p "$ONEPROVIDER_DATA_DIR"
 
 
   if [[ $DEBUG -eq 1 ]]; then
     docker_compose_sh_local() {
-      echo PROVIDER_NAME="$PROVIDER_NAME" GEO_LATITUDE="$GEO_LATITUDE" GEO_LONGITUDE="$GEO_LONGITUDE" PROVIDER_FQDN="$PROVIDER_FQDN" ZONE_FQDN="$ZONE_FQDN" ONEPROVIDER_CONFIG_DIR="$ONEPROVIDER_CONFIG_DIR" ONEPROVIDER_DATA_DIR="$ONEPROVIDER_DATA_DIR" ${docker_compose_sh[*]} "$@"
+      echo PROVIDER_NAME="$PROVIDER_NAME" GEO_LATITUDE="$GEO_LATITUDE" GEO_LONGITUDE="$GEO_LONGITUDE" PROVIDER_FQDN="$PROVIDER_FQDN" ZONE_FQDN="$ZONE_FQDN" PROVIDER_REGISTRATION_TOKEN="$PROVIDER_REGISTRATION_TOKEN" ONEPROVIDER_CONFIG_DIR="$ONEPROVIDER_CONFIG_DIR" ONEPROVIDER_DATA_DIR="$ONEPROVIDER_DATA_DIR" ${docker_compose_sh[*]} "$@"
     }
     docker_compose_sh_local="echo ${docker_compose_sh_local}"
     print_docker_compose_file "$compose_file_name"
   else
     docker_compose_sh_local() {
-      PROVIDER_NAME="$PROVIDER_NAME" GEO_LATITUDE="$GEO_LATITUDE" GEO_LONGITUDE="$GEO_LONGITUDE" PROVIDER_FQDN="$PROVIDER_FQDN" ZONE_FQDN="$ZONE_FQDN" ONEPROVIDER_CONFIG_DIR="$ONEPROVIDER_CONFIG_DIR" ONEPROVIDER_DATA_DIR="$ONEPROVIDER_DATA_DIR" ${docker_compose_sh[*]} "$@"
+      PROVIDER_NAME="$PROVIDER_NAME" GEO_LATITUDE="$GEO_LATITUDE" GEO_LONGITUDE="$GEO_LONGITUDE" PROVIDER_FQDN="$PROVIDER_FQDN" ZONE_FQDN="$ZONE_FQDN" PROVIDER_REGISTRATION_TOKEN="$PROVIDER_REGISTRATION_TOKEN" ONEPROVIDER_CONFIG_DIR="$ONEPROVIDER_CONFIG_DIR" ONEPROVIDER_DATA_DIR="$ONEPROVIDER_DATA_DIR" ${docker_compose_sh[*]} "$@"
     }
   fi
 
@@ -290,6 +298,10 @@ main() {
               ;;
           --provider-fqdn)
               PROVIDER_FQDN=$2
+              shift
+              ;;
+          --provider-token)
+              PROVIDER_REGISTRATION_TOKEN=$2
               shift
               ;;
           --set-lat-long)
