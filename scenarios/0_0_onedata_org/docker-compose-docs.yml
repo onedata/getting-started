@@ -1,0 +1,22 @@
+version: '2.0'
+
+services:
+  homepage:
+    restart: always
+    image: nginx:latest
+    container_name: homepage
+    volumes:
+      - "/Users/lopiola/git/getting-started/scenarios/0_0_onedata_org/nginx.conf:/etc/nginx/nginx.conf:ro"  # @fixme
+      - "/tmp/ng/gui:/usr/share/nginx/html"  # @fixme
+      - "/tmp/ng/docs:/usr/share/nginx/html/docs"  # @fixme
+      - "/tmp/ng/web_key.pem:/tmp/ng/web_key.pem"
+      - "/tmp/ng/web_bundle.pem:/tmp/ng/web_bundle.pem"
+    ports:
+      - "8443:443"  # @fixme
+
+# @fixme
+#networks:
+#  default:
+#    driver: bridge
+#    driver_opts:
+#      com.docker.network.driver.mtu: 1400
