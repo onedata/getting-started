@@ -42,7 +42,7 @@ def ensure_config(versions_file):
         return None
 
     with open(versions_file, 'r') as stream:
-        cfg = yaml.load(stream)
+        cfg = yaml.load(stream, Loader=yaml.FullLoader)
 
     try:
         _ = cfg['gui']['docker']
