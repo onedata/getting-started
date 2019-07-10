@@ -1,0 +1,45 @@
+version: '2.0'
+
+services:
+  node1.onezone:
+    restart: always
+    image: docker.onedata.org/onezone:19.02.0-beta1
+    hostname: node1.onezone.local
+    # dns: 8.8.8.8 # uncomment if container can't ping any domain
+    container_name: onezone-1
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+      # configuration persistence
+      - "./data/persistence:/volumes/persistence"
+      # OpenID and env config
+      - "./data/secret/auth.config:/etc/oz_worker/auth.config"
+      - "./data/images/xdc.png:/var/www/html/oz_worker/custom/xdc.png"
+      - "./data/images/deep.png:/var/www/html/oz_worker/custom/deep.png"
+    ports:
+      - "53:53"
+      - "53:53/udp"
+      - "80:80"
+      - "443:443"
+      - "9443:9443"
+    environment:
+      #ONEPANEL_DEBUG_MODE: "true" # prevents container exit on configuration error
+      ONEPANEL_BATCH_MODE: "false"
+      ONEPANEL_LOG_LEVEL: "none" # prints logs to stdout (possible values: none, debug, info, error), by default set to info
+      ONEPANEL_EMERGENCY_PASSPHRASE: ${ONEPANEL_EMERGENCY_PASSPHRASE}
+      # Used for test purposes, disable when you have your own web cert mounted via volumes.
+      # Cert will be generated only if none is found under cert path.
+
+      # If enabled, a new web cert will be generated with CN matching the
+      #   ONEPANEL_GENERATED_CERT_DOMAIN and signed by OnedataTestWebServerCa
+      # NOTE: The generation will be performed upon every startup, any
+      #   existing certs will be backed up and placed in the same directory.
+      # WARNING: This functionality is devised for test purposes and must not
+      #   be used in production.
+      ONEPANEL_GENERATE_TEST_WEB_CERT: "false"  # default: false
+      # The generated test web cert will be issued for below domain.
+      ONEPANEL_GENERATED_CERT_DOMAIN: ""  # default: ""
+      # If enabled, onepanel will trust any server that has a cert signed by
+      #   the OnedataTestWebServerCa.
+      # WARNING: This functionality is devised for test purposes and must not
+      #   be used in production.
+      ONEPANEL_TRUST_TEST_CA: "false"  # default: false
