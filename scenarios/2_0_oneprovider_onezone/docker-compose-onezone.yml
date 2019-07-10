@@ -2,16 +2,19 @@ version: '2.0'
 
 services:
   node1.onezone:
-    image: onedata/onezone:18.02.0-beta1
-    hostname: node1.onezone.local
+    image: onedata/onezone:18.02.0-rc13
+    hostname: node1.onezone
     # dns: 8.8.8.8 # uncomment if container can't ping any domain
     container_name: onezone-1
     volumes:
         - "/var/run/docker.sock:/var/run/docker.sock"
         # configuration persistence
         - "${ONEZONE_CONFIG_DIR}:/volumes/persistence"
+        # Default configuration override
+        - "${PWD}/oz-worker-overlay.config:/etc/oz_worker/overlay.config"
+        - "${PWD}/oz-panel-overlay.config:/etc/oz_panel/overlay.config"
         # OpenId configuration
-        #- "${AUTH_PATH}:/var/lib/oz_worker/auth.config"
+        #- "${AUTH_PATH}:/etc/oz_worker/auth.config"
         # Server SSL certificates
         #- "${OZ_PRIV_KEY_PATH}:/etc/oz_panel/certs/web_key.pem"
         #- "${OZ_CERT_PATH}:/etc/oz_panel/certs/web_cert.pem"
@@ -24,7 +27,6 @@ services:
       #ONEPANEL_DEBUG_MODE: "true" # prevents container exit on configuration error
       ONEPANEL_LOG_LEVEL: "none" # prints logs to stdout (possible values: none, debug, info, error), by default set to info
       ONEPANEL_BATCH_MODE: "true"
-
       # If enabled, a new web cert will be generated with CN matching the
       #   ONEPANEL_GENERATED_CERT_DOMAIN and signed by OnedataTestWebServerCa
       # NOTE: The generation will be performed upon every startup, any
@@ -39,10 +41,9 @@ services:
       # WARNING: This functionality is devised for test purposes and must not
       #   be used in production.
       ONEPANEL_TRUST_TEST_CA: "true"  # default: false
-
       ONEZONE_CONFIG: |
         cluster:
-          domainName: "onezone.local"
+          domainName: "onezone"
           autoDeploy: true
           nodes:
             n1:
@@ -55,11 +56,17 @@ services:
             nodes:
               - "n1"
           databases:
+            # Per node Couchbase cache size in MB for all buckets
+            serverQuota: 4096
+            # Per bucket Couchbase cache size in MB across the cluster
+            bucketQuota: 1024
             nodes:
               - "n1"
         onezone:
           name: "${ZONE_NAME}"
-          domainName: "onezone"
+          domainName: "node1.onezone"
+          policies:
+            subdomainDelegation: false
         onepanel:
           users:
             "admin":

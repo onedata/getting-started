@@ -26,9 +26,9 @@ set_defaults_if_not_defined_in_env() {
   [[ -z ${GEO_LONGITUDE+x} ]] && GEO_LONGITUDE="19.909444"
 
   # Default paths
-  [[ -z ${ONEPROVIDER_DATA_DIR+x} ]] && ONEPROVIDER_DATA_DIR="${PWD}/oneprovider_data/"
-  [[ -z ${ONEPROVIDER_CONFIG_DIR+x} ]] && ONEPROVIDER_CONFIG_DIR="${PWD}/config_oneprovider/"
-  [[ -z ${ONEZONE_CONFIG_DIR+x} ]] && ONEZONE_CONFIG_DIR="${PWD}/config_onezone/"
+  [[ -z ${ONEPROVIDER_DATA_DIR+x} ]] && ONEPROVIDER_DATA_DIR="${PWD}/oneprovider_data"
+  [[ -z ${ONEPROVIDER_CONFIG_DIR+x} ]] && ONEPROVIDER_CONFIG_DIR="${PWD}/config_oneprovider"
+  [[ -z ${ONEZONE_CONFIG_DIR+x} ]] && ONEZONE_CONFIG_DIR="${PWD}/config_onezone"
   [[ -z ${AUTH_PATH+x} ]] && AUTH_PATH="${REPO_ROOT}${AUTH_CONF}"
 
   # Default names for provider and zone
@@ -77,7 +77,9 @@ Options:
   --provider-data-dir  a directory where provider will store users raw data
   --provider-conf-dir  directory where provider will store configuration its files
   --zone-conf-dir      directory where zone will store configuration its files
-  --set-lat-long       sets latitude and longitude from reegeoip.net service based on your public ip's
+  --latitude           sets provider's latitude (default: 50.068968)
+  --longitude          sets provider's longitude (default: 19.909444)
+  --set-lat-long       sets latitude and longitude from ipstack.net service based on your public ip's
   --clean              clean all onezone, oneprivder and oneclient configuration and data files - provided all docker containers using them have been shutdown
   --with-clean         run --clean prior to setting up service
   --without-clean      prevents running --clean prior to setting up service
@@ -87,8 +89,7 @@ Options:
 }
 
 get_log_lat(){
-  ip="$(curl http://ipinfo.io/ip)"
-  read -r GEO_LATITUDE GEO_LONGITUDE <<< $(curl freegeoip.net/xml/"$ip" | grep -E "Latitude|Longitude" | cut -d '>' -f 2 | cut -d '<' -f 1)
+  read -r GEO_LATITUDE GEO_LONGITUDE <<< $(curl http://api.ipstack.com/check?access_key=28271ba621c88334145d67ae3748ce94 | tr ',' '\n' | grep -E "latitude|longitude" | cut -d ':' -f 2)
 }
 
 debug() {
@@ -107,8 +108,8 @@ is_clean_needed () {
   return 1
 }
 
-clean() {
 
+clean() {
   echo "The cleaning procedure will need to run commands using sudo, in order to remove volumes created by docker. Please provide a password if needed."
   # Make sure only root can run our script
 
@@ -117,30 +118,49 @@ clean() {
   # exit 1
   #fi
 
+  if [[ "$1" == "onezone" ]]; then
+    clean_onezone
+  elif [[ "$1" == "oneprovider" ]]; then
+    clean_oneprovider
+  else
+    clean_onezone
+    clean_oneprovider
+  fi
+
+  clean_scenario
+}
+
+clean_onezone() {
   [[ $(git status --porcelain "$ZONE_COMPOSE_FILE") != ""  ]] && echo "Warrning the file $ZONE_COMPOSE_FILE has changed, the cleaning procedure may not work!"
+
+  echo "Removing Onezone config dirs..."
+  sudo find "${ONEZONE_CONFIG_DIR}" -mindepth 1 -delete
+
+  echo "Removing Onezone containers..."
+  if (docker rm -vf 'onezone-1' 2>/dev/null) ; then
+    echo Removed Onezone container onezone-1.
+  fi
+
+  echo "This is the output of 'docker ps -a' command, please make sure that there are no Onezone containers listed!"
+  docker ps -a
+}
+
+clean_oneprovider() {
   [[ $(git status --porcelain "$PROVIDER_COMPOSE_FILE") != ""  ]] && echo "Warrning the file $PROVIDER_COMPOSE_FILE has changed, the cleaning procedure may not work!"
 
   echo "Removing provider and/or zone config dirs..."
-  sudo rm -rf "${ONEZONE_CONFIG_DIR}"
-  sudo rm -rf "${ONEPROVIDER_CONFIG_DIR}"
+  sudo find "${ONEPROVIDER_CONFIG_DIR}" -mindepth 1 -delete
 
+  echo "Removing Oneprovider data dir..."
+  sudo find "${ONEPROVIDER_DATA_DIR}" -mindepth 1 -delete
 
-  echo "Removing provider data dir..."
-  sudo rm -rf "${ONEPROVIDER_DATA_DIR}"
-
-  echo "Removing Onedata containers..."
-  if (docker rm -vf 'onezone-1' 2>/dev/null) ; then
-    echo Removed onezone container onezone-1.
-  fi
-
+  echo "Removing Oneprovider containers..."
   if (docker rm -vf 'oneprovider-1' 2>/dev/null) ; then
-    echo Removed onezone container onezone-1.
+    echo Removed Oneprovider container oneprovider-1.
   fi
 
-  echo "This is the output of 'docker ps -a' command, please make sure that there are no onedata containers listed!"
+  echo "This is the output of 'docker ps -a' command, please make sure that there are no Oneprovider containers listed!"
   docker ps -a
-
-  clean_scenario
 }
 
 batch_mode_check() {
@@ -275,6 +295,14 @@ main() {
           --set-lat-long)
               get_log_lat_flag=1
               ;;
+          --latitude)
+              GEO_LATITUDE=$2
+              shift
+              ;;
+          --longitude)
+              GEO_LONGITUDE=$2
+              shift
+              ;;
           --detach)
               compose_up_opts="-d"
               ;;
@@ -301,7 +329,7 @@ main() {
       read -r keep_old_config
     fi
     if [[ $keep_old_config == 'n' ]]; then
-        clean
+        clean $service
     fi
   fi
 
