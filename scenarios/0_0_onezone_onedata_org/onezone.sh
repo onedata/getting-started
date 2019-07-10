@@ -1,6 +1,6 @@
 #!/bin/bash
 YAML_FILE=docker-compose-onezone.yml
-PROJECT_NAME=onezone-beta
+PROJECT_NAME=onezone-onedata-org
 
 function start {
     docker-compose --project-name $PROJECT_NAME -f $YAML_FILE up -d

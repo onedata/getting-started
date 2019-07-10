@@ -1,4 +1,4 @@
-version: '2.0'
+version: '2'
 
 services:
   node1.onezone:
@@ -9,7 +9,7 @@ services:
     container_name: onezone-1
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock"
-      # configuration persistence
+      # Onezone persistence
       - "./data/persistence:/volumes/persistence"
       # OpenID and env config
       - "./data/secret/auth.config:/etc/oz_worker/auth.config"
