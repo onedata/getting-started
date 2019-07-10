@@ -1,3 +1,5 @@
+See scenarios/0_0_onezone_onedata_org for deploying Onezone @ onezone.onedata.org.
+
 # Onedata Quickstart Scenarios
 
 This repository contains a few scenarios for quickly and easily getting started with [Onedata](http://github.com/onedata/onedata) distributed data management platform. The scenarios are intended for administrators who want to get familiar with Onedata. 
