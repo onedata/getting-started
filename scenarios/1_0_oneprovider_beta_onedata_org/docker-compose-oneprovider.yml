@@ -2,10 +2,15 @@ version: '2.0'
 
 services:
   node1.oneprovider:
-    image: onedata/oneprovider:18.02.0-beta1
-    hostname: node1.oneprovider.local
-    # dns: 8.8.8.8 # uncomment if container can't ping any domain
+    image: onedata/oneprovider:18.02.1
     container_name: oneprovider-1
+    hostname: node1
+    domainname: oneprovider
+    # dns: 8.8.8.8 # uncomment if container can't ping any domain
+    extra_hosts:
+      - "node1.oneprovider:127.0.1.1"
+    # No port forwarding and better netowrk performance
+    network_mode: host
     volumes:
         - "/var/run/docker.sock:/var/run/docker.sock"
         # configuration persistence
@@ -18,16 +23,18 @@ services:
         #- "${OP_CHAIN_PATH}:/etc/op_panel/certs/web_chain.pem"
         # Additional, trusted CA certificates (any filename is accepted)
         #- "${OP_CACERTS_PATH}:/etc/op_panel/cacerts/customCaBundle.pem"
-    ports:
-      - "80:80"
-      - "443:443"
-      - "6665:6665"
-      - "9443:9443"
+    ulimits:
+      # No core dumps created by rtransfer. TODO: Should be removed in the future.
+      core: 0
+      # For couchbase file limit to work on centos 7
+      nproc: 65535
+      nofile:
+        soft: 65535
+        hard: 65535
     environment:
       #ONEPANEL_DEBUG_MODE: "true" # prevents container exit on configuration error
       ONEPANEL_LOG_LEVEL: "none" # prints logs to stdout (possible values: none, debug, info, error), by default set to info
       ONEPANEL_BATCH_MODE: "true"
-
       # If enabled, a new web cert will be generated with CN matching the
       #   ONEPANEL_GENERATED_CERT_DOMAIN and signed by OnedataTestWebServerCa
       # NOTE: The generation will be performed upon every startup, any
@@ -42,10 +49,9 @@ services:
       # WARNING: This functionality is devised for test purposes and must not
       #   be used in production.
       ONEPANEL_TRUST_TEST_CA: "false"  # default: false
-
       ONEPROVIDER_CONFIG: |
         cluster:
-          domainName: "oneprovider.local"
+          domainName: "oneprovider"
           nodes:
             n1:
               hostname: "node1"
@@ -57,6 +63,10 @@ services:
             nodes:
               - "n1"
           databases:
+            # Per node Couchbase cache size in MB for all buckets
+            serverQuota: 4096
+            # Per bucket Couchbase cache size in MB across the cluster
+            bucketQuota: 1024
             nodes:
               - "n1"
           storages:
@@ -66,6 +76,15 @@ services:
         oneprovider:
           register: true
           name: "${PROVIDER_NAME}"
+          # "false" in subdomainDelegation means that provider admin
+          #         manages its DNS on its own and provider is available
+          #         under the domain given in "domain" field
+          # "true" means provider is using a subdomain given in "subdomain"
+          #        config field which is registered under the onezone domain
+          #        given in a config in the onezone domain
+          # Note that for subdomainDelegation "true" to work onezone with
+          # properly configured DNS zone delegation and external IP is needed.
+          # This onezone setup is not covered by the getting-started scenarios.
           subdomainDelegation: false
           domain: "${PROVIDER_FQDN}" # OR IP ADDRESS
           adminEmail: "getting-started@onedata.org"

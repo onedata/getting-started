@@ -240,14 +240,7 @@ If you want (usually you do) your Oneprovider/Onezone to communicate with any On
 | 53/UDP    |  DNS (Optional - used for load-balancing)   |
 | 80/TCP    | HTTP    |
 | 443/TCP   | HTTPS   |
-| 5555/TCP  | Communication between Oneclient command line tool and Oneprovider service (TCP) |
-| 5556/TCP  | Communication between Oneprovider services among different sites |
 | 6665/TCP  | Onedata data transfer channel (RTransfer) |
-| 6666/TCP  | Onedata data transfer channel (RTransfer) |
-| 7443/TCP  | Communication between Oneprovider instances and Onezone used to exchange metadata  |
-| 8443/TCP  | REST and CDMI API's  (HTTP) |
-| 8876/TCP  | RTransfer protocol gateway |
-| 8877/TCP  | RTransfer protocol gateway |
 | 9443/TCP  | Onepanel web interface |
 
 and make sure that there are no intermediate firewalls blocking those ports between machines running your Onedata services. More information on firewall setup can be found in [documentation](https://onedata.org/docs/doc/administering_onedata/firewall_setup.html).

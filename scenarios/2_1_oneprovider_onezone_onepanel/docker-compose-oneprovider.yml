@@ -2,14 +2,17 @@ version: '2.0'
 
 services:
   node1.oneprovider:
-    image: onedata/oneprovider:18.02.0-beta1
-    hostname: node1.oneprovider.local
+    image: onedata/oneprovider:18.02.1
+    hostname: node1.oneprovider
     # dns: 8.8.8.8 # uncomment if container can't ping any domain
     container_name: oneprovider-1
     volumes:
         - "/var/run/docker.sock:/var/run/docker.sock"
         # configuration persistence
         - "${ONEPROVIDER_CONFIG_DIR}:/volumes/persistence"
+        # Default configuration override
+        - "${PWD}/op-worker-overlay.config:/etc/op_worker/overlay.config"
+        - "${PWD}/op-panel-overlay.config:/etc/op_panel/overlay.config"
         # data persistence
         - "${ONEPROVIDER_DATA_DIR}:/volumes/storage"
         # Server SSL certificates
@@ -35,7 +38,6 @@ services:
       # WARNING: This functionality is devised for test purposes and must not
       #   be used in production.
       ONEPANEL_TRUST_TEST_CA: "true"  # default: false
-
 
 networks:
   scenario2:

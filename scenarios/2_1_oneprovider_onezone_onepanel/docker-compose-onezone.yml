@@ -2,16 +2,19 @@ version: '2.0'
 
 services:
   node1.onezone:
-    image: onedata/onezone:18.02.0-beta1
-    hostname: node1.onezone.local
+    image: onedata/onezone:18.02.0-rc13
+    hostname: node1.onezone
     # dns: 8.8.8.8 # uncomment if container can't ping any domain
     container_name: onezone-1
     volumes:
         - "/var/run/docker.sock:/var/run/docker.sock"
         # configuration persistence
         - "${ONEZONE_CONFIG_DIR}:/volumes/persistence"
+        # Default configuration override
+        - "${PWD}/oz-worker-overlay.config:/etc/oz_worker/overlay.config"
+        - "${PWD}/oz-panel-overlay.config:/etc/oz_panel/overlay.config"
         # OpenId configuration
-        #- "${AUTH_PATH}:/var/lib/oz_worker/auth.config"
+        #- "${AUTH_PATH}:/etc/oz_worker/auth.config"
         # Server SSL certificates
         #- "${OZ_PRIV_KEY_PATH}:/etc/oz_panel/certs/web_key.pem"
         #- "${OZ_CERT_PATH}:/etc/oz_panel/certs/web_cert.pem"
@@ -35,9 +38,6 @@ services:
       # WARNING: This functionality is devised for test purposes and must not
       #   be used in production.
       ONEPANEL_TRUST_TEST_CA: "true"  # default: false
-
-
-
 
 networks:
   scenario2:
