@@ -5,7 +5,7 @@ services:
     restart: always
     # NOTE! When upgrading to 19.02.*, make sure to upgrade auth.config and 
     # add EMERGENCY PASSPHRASE to env section.
-    image: docker.onedata.org/onezone:18.02.0-rc13
+    image: onedata/onezone:18.02.2
     #hostname: $HOST
     network_mode: host
     container_name: onezone-1
@@ -16,10 +16,6 @@ services:
       - "/volumes/configs/auth.config:/etc/oz_worker/auth.config"
       - "/volumes/configs/oz_worker.overlay.config:/etc/oz_worker/overlay.config"
       - "/volumes/configs/onepanel.overlay.config:/etc/oz_panel/overlay.config"
-      # Custom patches - not needed in versions > 18.02.1
-      - "/volumes/configs/custom_entitlement_parser.erl:/etc/oz_worker/auth_plugins/custom_entitlement_parser.erl"
-      - "/volumes/configs/handle_logic_plugin.beam:/usr/lib/oz_worker/lib/oz_worker-18.02.0-rc13/ebin/handle_logic_plugin.beam"
-      - "/volumes/configs/provider_gs_translator.beam:/usr/lib/oz_worker/lib/oz_worker-18.02.0-rc13/ebin/provider_gs_translator.beam"
       # Utils
       - "/volumes/configs/brand-logo.svg:/var/lib/oz_worker/gui_static/assets/images/brand-logo.svg"
     ports:
@@ -46,9 +42,3 @@ services:
       ONEPANEL_DEBUG_MODE: "true" # if true prevents container exit on configuration error
       ONEPANEL_LOG_LEVEL: "info"
       ONEPANEL_BATCH_MODE: "false"
-
-networks:
-  default:
-    driver: bridge
-    driver_opts:
-      com.docker.network.driver.mtu: 1400
